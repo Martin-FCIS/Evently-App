@@ -2,9 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:event_app/core/constants/app_assets.dart';
 import 'package:event_app/core/manager/app_provider.dart';
+import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -22,6 +24,7 @@ class StartScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                textDirection: TextDirection.ltr,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FadeInLeftBig(
@@ -47,10 +50,10 @@ class StartScreen extends StatelessWidget {
               Spacer(),
               Expanded(
                   flex: 6,
-                  child: Center(child: Image.asset(AppAssets.startLight))),
+                  child: Center(child: Image.asset(AppAssets.startLight,width: double.infinity,fit: BoxFit.fill,))),
               Spacer(),
               Text(
-                "Personalize Your Experience",
+                AppLocalizations.of(context)!.start_title,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: GoogleFonts.inter().fontFamily,
@@ -61,16 +64,17 @@ class StartScreen extends StatelessWidget {
                 height: size.height * 0.02,
               ),
               Text(
-                  "Choose your preferred theme and language to \nget started with a comfortable, tailored \nexperience that suits your style.",
+                  AppLocalizations.of(context)!.start_desc,
                   style:theme.textTheme.bodyMedium
               ),
               SizedBox(height: size.height * 0.03),
               Expanded(
                 child: Row(
+                  textDirection: TextDirection.ltr,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Language",
+                      AppLocalizations.of(context)!.lang,
                       style: TextStyle(
                         fontSize: 24,
                         fontFamily: GoogleFonts.inter().fontFamily,
@@ -78,9 +82,11 @@ class StartScreen extends StatelessWidget {
                       ),
                     ),
                     AnimatedToggleSwitch<String>.rolling(
-                      current: "en",
+                      current: provider.lang,
                       values: ["en", "ar"],
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        provider.changeLanguage();
+                      },
                       iconList: [
                         Image.asset(AppAssets.americanIcon),
                         Image.asset(AppAssets.egyIcon),
@@ -97,10 +103,11 @@ class StartScreen extends StatelessWidget {
               ),
               Expanded(
                 child: Row(
+                  textDirection: TextDirection.ltr,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Theme",
+                      AppLocalizations.of(context)!.theme,
                       style: TextStyle(
                         fontSize: 24,
                         fontFamily: GoogleFonts.inter().fontFamily,
@@ -140,9 +147,11 @@ class StartScreen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16)),
                               padding: EdgeInsets.all(16)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
+                          },
                           child: Text(
-                            "Let's Start",
+                            AppLocalizations.of(context)!.l_start,
                             style: TextStyle(
                                 fontFamily: GoogleFonts.inter().fontFamily,
                                 color: Colors.white,

@@ -38,6 +38,10 @@ dependencies:
   google_fonts: ^6.2.1
   animated_toggle_switch: ^0.8.4
   provider: ^6.1.2
+  shared_preferences: ^2.5.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +73,7 @@ flutter:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
-
+  generate: true  #localization
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
 
