@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:event_app/core/constants/app_assets.dart';
+import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,9 @@ class SplashScreen extends StatelessWidget {
           onFinish: (direction) {
             Future.delayed(
               Duration(seconds: 2),
-                (){},
+                (){
+                Navigator.pushReplacementNamed(context, RoutesName.startScreen);
+                },
             );
           },
           child: Column(
