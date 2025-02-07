@@ -3,6 +3,7 @@ import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:event_app/core/constants/app_assets.dart';
 import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/core/routes/app_routes_name.dart';
+import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +14,11 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery
+        .of(context)
+        .size;
     var theme = Theme.of(context);
-    var provider=Provider.of<AppProvider>(context);
+    var provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -29,9 +32,9 @@ class StartScreen extends StatelessWidget {
                 children: [
                   FadeInLeftBig(
                       child: Image.asset(
-                    AppAssets.eventLogo,
-                    width: 50,
-                  )),
+                        AppAssets.eventLogo,
+                        width: 50,
+                      )),
                   SizedBox(
                     width: size.width * 0.025,
                   ),
@@ -41,7 +44,9 @@ class StartScreen extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 35,
-                          fontFamily: GoogleFonts.jockeyOne().fontFamily,
+                          fontFamily: GoogleFonts
+                              .jockeyOne()
+                              .fontFamily,
                           color: theme.primaryColor),
                     ),
                   ),
@@ -50,13 +55,17 @@ class StartScreen extends StatelessWidget {
               Spacer(),
               Expanded(
                   flex: 6,
-                  child: Center(child: Image.asset(AppAssets.startLight,width: double.infinity,fit: BoxFit.fill,))),
+                  child: Center(child: Image.asset(
+                    AppAssets.startLight, width: double.infinity,
+                    fit: BoxFit.fill,))),
               Spacer(),
               Text(
                 AppLocalizations.of(context)!.start_title,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.inter().fontFamily,
+                    fontFamily: GoogleFonts
+                        .inter()
+                        .fontFamily,
                     fontSize: 24,
                     color: theme.primaryColor),
               ),
@@ -65,7 +74,7 @@ class StartScreen extends StatelessWidget {
               ),
               Text(
                   AppLocalizations.of(context)!.start_desc,
-                  style:theme.textTheme.bodyMedium
+                  style: theme.textTheme.bodyMedium
               ),
               SizedBox(height: size.height * 0.03),
               Expanded(
@@ -77,7 +86,9 @@ class StartScreen extends StatelessWidget {
                       AppLocalizations.of(context)!.lang,
                       style: TextStyle(
                         fontSize: 24,
-                        fontFamily: GoogleFonts.inter().fontFamily,
+                        fontFamily: GoogleFonts
+                            .inter()
+                            .fontFamily,
                         color: theme.primaryColor,
                       ),
                     ),
@@ -110,7 +121,9 @@ class StartScreen extends StatelessWidget {
                       AppLocalizations.of(context)!.theme,
                       style: TextStyle(
                         fontSize: 24,
-                        fontFamily: GoogleFonts.inter().fontFamily,
+                        fontFamily: GoogleFonts
+                            .inter()
+                            .fontFamily,
                         color: theme.primaryColor,
                       ),
                     ),
@@ -122,7 +135,9 @@ class StartScreen extends StatelessWidget {
                       },
                       iconList: [
                         Image.asset(AppAssets.sunIcon),
-                        Image.asset(AppAssets.moonIcon,color: provider.themeMode==ThemeMode.dark ? Colors.white :null,),
+                        Image.asset(AppAssets.moonIcon,
+                          color: provider.themeMode == ThemeMode.dark ? Colors
+                              .white : null,),
                       ],
                       height: 40,
                       indicatorSize: Size(40, 40),
@@ -137,31 +152,11 @@ class StartScreen extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: theme.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16)),
-                              padding: EdgeInsets.all(16)),
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.l_start,
-                            style: TextStyle(
-                                fontFamily: GoogleFonts.inter().fontFamily,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          )),
-                    ),
-                  ],
-                ),
-              )
+              CustomButton(text: AppLocalizations.of(context)!.l_start,
+                   onTap:() {
+                     Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
+
+                   },),
             ],
           ),
         ),

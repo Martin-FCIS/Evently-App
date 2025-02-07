@@ -9,6 +9,7 @@ class AppAssets{
   //images
   static const String startLight = "assets/images/start_light.png";
   static const String startDark = "assets/images/start_dark.png";
+  static const String resetPass = "assets/images/reset_pass.png";
 
 
   //icons
@@ -16,6 +17,7 @@ class AppAssets{
   static const String americanIcon = "assets/icons/LR.png";
   static const String moonIcon = "assets/icons/Moon.png";
   static const String sunIcon = "assets/icons/Sun.png";
+  static const String googleIcon = "assets/icons/Google.png";
 
 
 }
