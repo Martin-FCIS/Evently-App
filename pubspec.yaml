@@ -39,6 +39,7 @@ dependencies:
   animated_toggle_switch: ^0.8.4
   provider: ^6.1.2
   shared_preferences: ^2.5.1
+  flutter_svg: ^2.0.17
   flutter_localizations:
     sdk: flutter
   intl: any
@@ -70,6 +71,7 @@ flutter:
     - assets/logo/
     - assets/images/
     - assets/icons/
+    - assets/icons/btn_nav/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

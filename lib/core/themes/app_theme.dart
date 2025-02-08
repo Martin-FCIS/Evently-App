@@ -6,7 +6,7 @@ class AppTheme{
   static ThemeData lightTheme=ThemeData(
     appBarTheme: AppBarTheme(centerTitle: true,backgroundColor: AppColors.lightBg,titleTextStyle: TextStyle(color: Colors.black,fontSize: 25)),
     scaffoldBackgroundColor: AppColors.lightBg,
-    primaryColor: AppColors.primamryColor,
+    primaryColor: AppColors.primaryColor,
     primaryColorLight:Colors.white,
     primaryColorDark: Colors.black,
     textTheme: TextTheme(
@@ -21,9 +21,9 @@ class AppTheme{
     ),
   );
   static ThemeData darkTheme=ThemeData(
-      appBarTheme: AppBarTheme(centerTitle: true,backgroundColor: AppColors.darktBg,titleTextStyle: TextStyle(color: AppColors.primamryColor,fontSize: 25)),
-      scaffoldBackgroundColor: AppColors.darktBg,
-    primaryColor: AppColors.primamryColor,
+      appBarTheme: AppBarTheme(centerTitle: true,backgroundColor: AppColors.darkBg,titleTextStyle: TextStyle(color: AppColors.primaryColor,fontSize: 25)),
+      scaffoldBackgroundColor: AppColors.darkBg,
+    primaryColor: AppColors.primaryColor,
     primaryColorLight:Colors.black,
     primaryColorDark: Colors.white,
   textTheme: TextTheme(
@@ -32,9 +32,9 @@ class AppTheme{
   bodyLarge: TextStyle(color: Colors.white,fontSize: 20),
   ),
     inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color: AppColors.primamryColor)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color: AppColors.primamryColor)),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color: AppColors.primamryColor)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color: AppColors.primaryColor)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color: AppColors.primaryColor)),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color: AppColors.primaryColor)),
     )
   );
 }

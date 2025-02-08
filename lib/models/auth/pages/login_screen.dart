@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       InkWell(
                           onTap: () {
-                            Navigator.pushReplacementNamed(context,
+                            Navigator.pushNamed(context,
                                 RoutesName.forgetPassScreen);
                           },
                           child: Text(
@@ -87,7 +87,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                   CustomButton(
                     text: AppLocalizations.of(context)!.l_login,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushReplacementNamed(context, RoutesName.layoutScreen);
+                    },
                   ),
                   SizedBox(
                     height: size.height * 0.03,
@@ -101,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context,
+                          Navigator.pushNamed(context,
                               RoutesName.createAccountScreen);
                         },
                         child: Text(
@@ -185,6 +187,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.04,),
                   AnimatedToggleSwitch<String>.rolling(
+                    textDirection: TextDirection.ltr,
                     current: provider.lang,
                     values: ["en", "ar"],
                     onChanged: (value) {
@@ -200,7 +203,32 @@ class LoginScreen extends StatelessWidget {
                         backgroundColor: Colors.transparent,
                         indicatorColor: theme.primaryColor,
                         borderColor: theme.primaryColor),
+                  ),
+                  SizedBox(height: size.height * 0.04,),
+                  AnimatedToggleSwitch<ThemeMode>.rolling(
+                    textDirection: TextDirection.ltr,
+                    current: provider.themeMode,
+                    values: [ThemeMode.light, ThemeMode.dark],
+                    onChanged: (value) {
+                      provider.changeTheme();
+                    },
+                    iconList: [
+                      Image.asset(AppAssets.sunIcon),
+                      Image.asset(
+                        AppAssets.moonIcon,
+                        color: provider.themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : null,
+                      ),
+                    ],
+                    height: 40,
+                    indicatorSize: Size(40, 40),
+                    style: ToggleStyle(
+                        backgroundColor: Colors.transparent,
+                        indicatorColor: theme.primaryColor,
+                        borderColor: theme.primaryColor),
                   )
+
                 ],
               ),
             ),

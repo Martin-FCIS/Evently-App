@@ -125,6 +125,7 @@ class CreateAccountScreen extends StatelessWidget {
                     height: size.height * 0.02,
                   ),
                   AnimatedToggleSwitch<String>.rolling(
+                    textDirection: TextDirection.ltr,
                     current: provider.lang,
                     values: ["en", "ar"],
                     onChanged: (value) {

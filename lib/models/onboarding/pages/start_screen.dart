@@ -14,9 +14,7 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery
-        .of(context)
-        .size;
+    var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     var provider = Provider.of<AppProvider>(context);
     return Scaffold(
@@ -32,9 +30,9 @@ class StartScreen extends StatelessWidget {
                 children: [
                   FadeInLeftBig(
                       child: Image.asset(
-                        AppAssets.eventLogo,
-                        width: 50,
-                      )),
+                    AppAssets.eventLogo,
+                    width: 50,
+                  )),
                   SizedBox(
                     width: size.width * 0.025,
                   ),
@@ -44,9 +42,7 @@ class StartScreen extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 35,
-                          fontFamily: GoogleFonts
-                              .jockeyOne()
-                              .fontFamily,
+                          fontFamily: GoogleFonts.jockeyOne().fontFamily,
                           color: theme.primaryColor),
                     ),
                   ),
@@ -55,27 +51,26 @@ class StartScreen extends StatelessWidget {
               Spacer(),
               Expanded(
                   flex: 6,
-                  child: Center(child: Image.asset(
-                    AppAssets.startLight, width: double.infinity,
-                    fit: BoxFit.fill,))),
+                  child: Center(
+                      child: Image.asset(
+                    AppAssets.startLight,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                  ))),
               Spacer(),
               Text(
                 AppLocalizations.of(context)!.start_title,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts
-                        .inter()
-                        .fontFamily,
+                    fontFamily: GoogleFonts.inter().fontFamily,
                     fontSize: 24,
                     color: theme.primaryColor),
               ),
               SizedBox(
                 height: size.height * 0.02,
               ),
-              Text(
-                  AppLocalizations.of(context)!.start_desc,
-                  style: theme.textTheme.bodyMedium
-              ),
+              Text(AppLocalizations.of(context)!.start_desc,
+                  style: theme.textTheme.bodyMedium),
               SizedBox(height: size.height * 0.03),
               Expanded(
                 child: Row(
@@ -86,13 +81,12 @@ class StartScreen extends StatelessWidget {
                       AppLocalizations.of(context)!.lang,
                       style: TextStyle(
                         fontSize: 24,
-                        fontFamily: GoogleFonts
-                            .inter()
-                            .fontFamily,
+                        fontFamily: GoogleFonts.inter().fontFamily,
                         color: theme.primaryColor,
                       ),
                     ),
                     AnimatedToggleSwitch<String>.rolling(
+                      textDirection: TextDirection.ltr,
                       current: provider.lang,
                       values: ["en", "ar"],
                       onChanged: (value) {
@@ -121,13 +115,12 @@ class StartScreen extends StatelessWidget {
                       AppLocalizations.of(context)!.theme,
                       style: TextStyle(
                         fontSize: 24,
-                        fontFamily: GoogleFonts
-                            .inter()
-                            .fontFamily,
+                        fontFamily: GoogleFonts.inter().fontFamily,
                         color: theme.primaryColor,
                       ),
                     ),
                     AnimatedToggleSwitch<ThemeMode>.rolling(
+                      textDirection: TextDirection.ltr,
                       current: provider.themeMode,
                       values: [ThemeMode.light, ThemeMode.dark],
                       onChanged: (value) {
@@ -135,9 +128,12 @@ class StartScreen extends StatelessWidget {
                       },
                       iconList: [
                         Image.asset(AppAssets.sunIcon),
-                        Image.asset(AppAssets.moonIcon,
-                          color: provider.themeMode == ThemeMode.dark ? Colors
-                              .white : null,),
+                        Image.asset(
+                          AppAssets.moonIcon,
+                          color: provider.themeMode == ThemeMode.dark
+                              ? Colors.white
+                              : null,
+                        ),
                       ],
                       height: 40,
                       indicatorSize: Size(40, 40),
@@ -152,11 +148,13 @@ class StartScreen extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              CustomButton(text: AppLocalizations.of(context)!.l_start,
-                   onTap:() {
-                     Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
-
-                   },),
+              CustomButton(
+                text: AppLocalizations.of(context)!.l_start,
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, RoutesName.loginScreen);
+                },
+              ),
             ],
           ),
         ),

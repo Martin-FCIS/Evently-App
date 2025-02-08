@@ -20,4 +20,14 @@ class AppAssets{
   static const String googleIcon = "assets/icons/Google.png";
 
 
+  static const String homeIcon = "assets/icons/btn_nav/home.svg";
+  static const String selectedHomeIcon = "assets/icons/btn_nav/selected_home.svg";
+  static const String mapIcon = "assets/icons/btn_nav/map.svg";
+  static const String selectedMapIcon = "assets/icons/btn_nav/selected_map.svg";
+  static const String favIcon = "assets/icons/btn_nav/heart.svg";
+  static const String selectedFavIcon = "assets/icons/btn_nav/selected_heart.svg";
+  static const String userIcon = "assets/icons/btn_nav/user.svg";
+  static const String selectedUserIcon = "assets/icons/btn_nav/selected_user.svg";
+
+
 }

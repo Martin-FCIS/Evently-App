@@ -18,5 +18,12 @@
     "c_already": "Already Have Account ?",
     "c_login": " Login",
     "f_forget": "Forget Password",
-    "f_reset": "Reset Password"
+    "f_reset": "Reset Password",
+    "lo_welcome": "Welcome Back ✨",
+    "lo_name": "John Safwat",
+    "lo_loc": "Cairo , Egypt",
+    "lo_home": "Home",
+    "lo_map": "Map",
+    "lo_love": "Love",
+    "lo_profile": "Profile"
 }
