@@ -96,6 +96,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: theme.primaryColor)),
               child: DropdownButton(
+                dropdownColor: appProvider.themeMode==ThemeMode.dark?theme.scaffoldBackgroundColor:null,  
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.lang,
@@ -135,6 +136,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: theme.primaryColor)),
               child: DropdownButton(
+                dropdownColor: appProvider.themeMode==ThemeMode.dark?theme.scaffoldBackgroundColor:null,
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.themeMode,
