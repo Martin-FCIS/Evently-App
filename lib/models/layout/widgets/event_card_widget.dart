@@ -2,7 +2,6 @@ import 'package:event_app/core/manager/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/app_assets.dart';
 
 class EventCardWidget extends StatelessWidget {
   String lightImage;
