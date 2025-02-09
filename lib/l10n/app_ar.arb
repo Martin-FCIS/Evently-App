@@ -25,5 +25,15 @@
     "lo_home": "الرئيسية",
     "lo_map": "الخريطة",
     "lo_love": "المفضلة",
-    "lo_profile": "الملف الشخصي"
+    "lo_profile": "الملف الشخصي",
+    "h_dateDay": "21",
+    "h_dateMonth": "نوفمبر",
+    "h_birthday_title": "هذه حفلة عيد ميلاد",
+    "p_email": "johnsafwat.route@gmail.com",
+    "p_english": "الإنجليزية",
+    "p_arabic": "العربية",
+    "p_light": "فاتح",
+    "p_dark": "داكن",
+    "p_logout": "تسجيل الخروج"
+
 }

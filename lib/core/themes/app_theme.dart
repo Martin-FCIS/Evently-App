@@ -9,6 +9,7 @@ class AppTheme{
     primaryColor: AppColors.primaryColor,
     primaryColorLight:Colors.white,
     primaryColorDark: Colors.black,
+
     textTheme: TextTheme(
       bodySmall: TextStyle(color: Colors.black,fontSize: 14),
       bodyMedium: TextStyle(color: Colors.black,fontSize: 18),

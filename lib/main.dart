@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AppProvider()..getTheme()..getLang(),
       builder: (context, child) {
-        var provider=Provider.of<AppProvider>(context);
+        var appProvider=Provider.of<AppProvider>(context);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
             Locale('en'), // English
             Locale('ar'), // Arabic
           ],
-          locale: Locale(provider.lang),
+          locale: Locale(appProvider.lang),
           theme: AppTheme.lightTheme,
-          themeMode: provider.themeMode,
+          themeMode: appProvider.themeMode,
           darkTheme: AppTheme.darkTheme,
           routes: AppRoutes.routes,
           initialRoute: RoutesName.splash,

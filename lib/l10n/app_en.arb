@@ -25,5 +25,14 @@
     "lo_home": "Home",
     "lo_map": "Map",
     "lo_love": "Love",
-    "lo_profile": "Profile"
+    "lo_profile": "Profile",
+    "h_dateDay": "21",
+    "h_dateMonth": "Nov",
+    "h_birthday_title": "This is a Birthday Party ",
+    "p_email": "johnsafwat.route@gmail.com",
+    "p_english": "English",
+    "p_arabic": "Arabic",
+    "p_light": "Light",
+    "p_dark": "Dark",
+    "p_logout": "logout"
 }
