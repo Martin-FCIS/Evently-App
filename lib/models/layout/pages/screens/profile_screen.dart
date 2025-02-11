@@ -1,5 +1,6 @@
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/themes/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -55,12 +56,15 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.lo_name,
+                          FirebaseAuth.instance.currentUser?.displayName
+                                  ?.toUpperCase() ??
+                              "",
                           style: theme.textTheme.bodyLarge!.copyWith(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          AppLocalizations.of(context)!.p_email,
+                          FirebaseAuth.instance.currentUser?.email ?? "",
+                          textDirection: TextDirection.ltr,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: theme.textTheme.bodyMedium!.copyWith(
@@ -96,7 +100,9 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: theme.primaryColor)),
               child: DropdownButton(
-                dropdownColor: appProvider.themeMode==ThemeMode.dark?theme.scaffoldBackgroundColor:null,  
+                dropdownColor: appProvider.themeMode == ThemeMode.dark
+                    ? theme.scaffoldBackgroundColor
+                    : null,
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.lang,
@@ -136,7 +142,9 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: theme.primaryColor)),
               child: DropdownButton(
-                dropdownColor: appProvider.themeMode==ThemeMode.dark?theme.scaffoldBackgroundColor:null,
+                dropdownColor: appProvider.themeMode == ThemeMode.dark
+                    ? theme.scaffoldBackgroundColor
+                    : null,
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.themeMode,
@@ -162,6 +170,7 @@ class ProfileScreen extends StatelessWidget {
             Spacer(),
             InkWell(
               onTap: () {
+                FirebaseAuth.instance.signOut();
                 Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
               },
               child: Container(

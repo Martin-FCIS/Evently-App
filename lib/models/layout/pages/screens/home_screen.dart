@@ -1,5 +1,6 @@
 import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/models/layout/widgets/event_card_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                                 .copyWith(color: Colors.white),
                           ),
                           Text(
-                            AppLocalizations.of(context)!.lo_name,
+                            FirebaseAuth.instance.currentUser?.displayName?.toUpperCase()?? "",
                             style: theme.textTheme.bodyLarge!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

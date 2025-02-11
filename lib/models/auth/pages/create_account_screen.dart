@@ -1,14 +1,16 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:event_app/core/routes/app_routes_name.dart';
+import 'package:event_app/core/widgets/custom_text_form_filed.dart';
+import 'package:event_app/models/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_regx.dart';
 import '../../../core/manager/app_provider.dart';
 import '../../../core/widgets/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
@@ -17,132 +19,178 @@ class CreateAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
-    var provider = Provider.of<AppProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.c_reg,
-        ),
-
-        leading: IconButton(onPressed: (){
-          Navigator.pushReplacementNamed(context,RoutesName.loginScreen);
-        }, icon: Icon(Icons.arrow_back,color:provider.themeMode == ThemeMode.light? Colors.black:theme.primaryColor,))
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Bounce(child: Image.asset(AppAssets.eventLogo)),
-                  Bounce(
-                    child: Text(
-                      "Evently",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          fontFamily: GoogleFonts.jockeyOne().fontFamily,
-                          color: theme.primaryColor),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.04,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email_rounded),
-                      labelText: AppLocalizations.of(context)!.c_name,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email_rounded),
-                      labelText: AppLocalizations.of(context)!.l_email,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.visibility_off)),
-                      labelText: AppLocalizations.of(context)!.l_password,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.visibility_off)),
-                      labelText: AppLocalizations.of(context)!.c_repass,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.04,
-                  ),
-                  CustomButton(
-                    text: AppLocalizations.of(context)!.l_createacc,
-                    onTap: () {},
-                  ),
-                  SizedBox(
-                    height: size.height * 0.03,
-                  ),
-                  Row(
-                    children: [
-                      Spacer(),
-                      Text(
-                        AppLocalizations.of(context)!.c_already,
-                        style: theme.textTheme.bodyMedium,
+    var appProvider = Provider.of<AppProvider>(context);
+    return ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: Scaffold(
+        appBar: AppBar(
+            title: Text(
+              AppLocalizations.of(context)!.c_reg,
+            ),
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, RoutesName.loginScreen);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: appProvider.themeMode == ThemeMode.light
+                      ? Colors.black
+                      : theme.primaryColor,
+                ))),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Consumer<AuthProvider>(
+                  builder: (context, provider, child) {
+                    return Form(
+                      key: provider.formKey,
+                      child: Column(
+                        children: [
+                          Bounce(child: Image.asset(AppAssets.eventLogo)),
+                          Bounce(
+                            child: Text(
+                              "Evently",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  fontFamily:
+                                      GoogleFonts.jockeyOne().fontFamily,
+                                  color: theme.primaryColor),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.04,
+                          ),
+                          CustomTextFormFiled(
+                            controller: provider.nameController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Invalid Value";
+                              } else {
+                                return null;
+                              }
+                            },
+                            labelText: AppLocalizations.of(context)!.c_name,
+                            prefixIcon: Icon(Icons.person_rounded),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          CustomTextFormFiled(
+                            controller: provider.emailController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Invalid Value";
+                              } else if (!AppRegx.emailRegex.hasMatch(value)) {
+                                return "invalid Email";
+                              } else {
+                                return null;
+                              }
+                            },
+                            labelText: AppLocalizations.of(context)!.l_email,
+                            prefixIcon: Icon(Icons.email_rounded),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          CustomTextFormFiled(
+                            controller: provider.passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Invalid Value";
+                              } else if (value.length < 8) {
+                                return "Password must be more than 8 characters";
+                              } else {
+                                return null;
+                              }
+                            },
+                            labelText: AppLocalizations.of(context)!.l_password,
+                            isPassword: true,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          CustomTextFormFiled(
+                            controller: provider.rePasswordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "invalid value";
+                              } else if (value !=
+                                  provider.passwordController.text) {
+                                return "Password not match";
+                              } else {
+                                return null;
+                              }
+                            },
+                            labelText: AppLocalizations.of(context)!.c_repass,
+                            isPassword: true,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.04,
+                          ),
+                          CustomButton(
+                            text: AppLocalizations.of(context)!.l_createacc,
+                            onTap: () {
+                              provider.createAccount(context);
+                            },
+                          ),
+                          SizedBox(
+                            height: size.height * 0.03,
+                          ),
+                          Row(
+                            children: [
+                              Spacer(),
+                              Text(
+                                AppLocalizations.of(context)!.c_already,
+                                style: theme.textTheme.bodyMedium,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, RoutesName.loginScreen);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.c_login,
+                                  style: theme.textTheme.bodyLarge!.copyWith(
+                                      color: theme.primaryColor,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: theme.primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          AnimatedToggleSwitch<String>.rolling(
+                            textDirection: TextDirection.ltr,
+                            current: appProvider.lang,
+                            values: ["en", "ar"],
+                            onChanged: (value) {
+                              appProvider.changeLanguage();
+                            },
+                            iconList: [
+                              Image.asset(AppAssets.americanIcon),
+                              Image.asset(AppAssets.egyIcon),
+                            ],
+                            height: 40,
+                            indicatorSize: Size(40, 40),
+                            style: ToggleStyle(
+                                backgroundColor: Colors.transparent,
+                                indicatorColor: theme.primaryColor,
+                                borderColor: theme.primaryColor),
+                          )
+                        ],
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, RoutesName.loginScreen);
-                        },
-                        child: Text(
-                          AppLocalizations.of(context)!.c_login,
-                          style: theme.textTheme.bodyLarge!.copyWith(
-                              color: theme.primaryColor,
-                              decoration: TextDecoration.underline,
-                              decorationColor: theme.primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic),
-                        ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  AnimatedToggleSwitch<String>.rolling(
-                    textDirection: TextDirection.ltr,
-                    current: provider.lang,
-                    values: ["en", "ar"],
-                    onChanged: (value) {
-                      provider.changeLanguage();
-                    },
-                    iconList: [
-                      Image.asset(AppAssets.americanIcon),
-                      Image.asset(AppAssets.egyIcon),
-                    ],
-                    height: 40,
-                    indicatorSize: Size(40, 40),
-                    style: ToggleStyle(
-                        backgroundColor: Colors.transparent,
-                        indicatorColor: theme.primaryColor,
-                        borderColor: theme.primaryColor),
-                  )
-                ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
