@@ -49,9 +49,12 @@ class LoginScreen extends StatelessWidget {
                           ),
                           CustomTextFormFiled(
                             controller: provider.emailController,
-                            validator: (p0) {
-                              if(p0!.isEmpty){
+                            validator: (value) {
+                              if(value==null||value.isEmpty){
                                 return "Invalid value";
+                              }
+                              else{
+                                return null;
                               }
                             },
                             prefixIcon: Icon(Icons.email_rounded),
@@ -62,9 +65,12 @@ class LoginScreen extends StatelessWidget {
                           ),
                           CustomTextFormFiled(
                             controller: provider.passwordController,
-                            validator: (p0) {
-                              if(p0!.isEmpty){
+                            validator: (value) {
+                              if(value==null||value.isEmpty){
                                 return "Invalid value";
+                              }
+                              else{
+                                return null;
                               }
                             },
                             labelText: AppLocalizations.of(context)!.l_password,

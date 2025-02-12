@@ -49,4 +49,9 @@ class AppAssets{
   static const String selectedUserIcon = "assets/icons/btn_nav/selected_user.svg";
 
 
+  static const String allCat = "assets/icons/cat_icons/all_icon.png";
+  static const String sportCat = "assets/icons/cat_icons/sport_icon.png";
+  static const String birthdayCat = "assets/icons/cat_icons/birthday_icon.png";
+
+
 }

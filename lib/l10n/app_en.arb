@@ -34,5 +34,15 @@
     "p_arabic": "Arabic",
     "p_light": "Light",
     "p_dark": "Dark",
-    "p_logout": "logout"
+    "p_logout": "logout",
+    "all": "All",
+    "sport": "Sport",
+    "birthday": "Birthday",
+    "meeting": "Meeting",
+    "gaming": "Gaming",
+    "eating": "Eating",
+    "holiday": "Holiday",
+    "exhibition": "Exhibition",
+    "workshop": "WorkShop",
+    "book_club": "Book Club"
 }

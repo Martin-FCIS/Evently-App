@@ -106,6 +106,7 @@ class ProfileScreen extends StatelessWidget {
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.lang,
+                icon: Icon(Icons.arrow_drop_down_rounded,size: 50,color: theme.primaryColor,),
                 items: [
                   DropdownMenuItem(
                       value: "en",
@@ -148,6 +149,7 @@ class ProfileScreen extends StatelessWidget {
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.themeMode,
+                icon: Icon(Icons.arrow_drop_down_rounded,size: 50,color: theme.primaryColor,),
                 items: [
                   DropdownMenuItem(
                       value: ThemeMode.light,

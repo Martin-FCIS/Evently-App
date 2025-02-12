@@ -34,6 +34,16 @@
     "p_arabic": "العربية",
     "p_light": "فاتح",
     "p_dark": "داكن",
-    "p_logout": "تسجيل الخروج"
+    "p_logout": "تسجيل الخروج",
+    "all": "الكل",
+    "sport": "رياضة",
+    "birthday": "عيد ميلاد",
+    "meeting": "اجتماع",
+    "gaming": "ألعاب",
+    "eating": "طعام",
+    "holiday": "عطلة",
+    "exhibition": "معرض",
+    "workshop": "ورشة عمل",
+    "book_club": "نادي الكتب"
 
 }
