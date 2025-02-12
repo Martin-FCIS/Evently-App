@@ -1,7 +1,7 @@
 import 'package:event_app/core/manager/app_provider.dart';
+import 'package:event_app/firebase_managre/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class EventCardWidget extends StatelessWidget {
   String lightImage;
@@ -9,6 +9,7 @@ class EventCardWidget extends StatelessWidget {
   String day;
   String month;
   String title;
+  EventModel? event;
 
   EventCardWidget(
       {super.key,
@@ -16,7 +17,8 @@ class EventCardWidget extends StatelessWidget {
       required this.darkImage,
       required this.day,
       required this.title,
-      required this.month});
+      required this.month,
+      this.event});
 
   @override
   Widget build(BuildContext context) {

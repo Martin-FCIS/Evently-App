@@ -5,12 +5,25 @@ import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:event_app/modules/layout/widgets/event_card_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../core/constants/app_assets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<LayoutProvider>(context, listen: false).getEvents();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +96,10 @@ class HomeScreen extends StatelessWidget {
                                 child: Text(
                               appProvider.lang,
                               style: TextStyle(
-                                  color: appProvider.themeMode == ThemeMode.light
-                                      ? theme.primaryColor
-                                      : theme.scaffoldBackgroundColor,
+                                  color:
+                                      appProvider.themeMode == ThemeMode.light
+                                          ? theme.primaryColor
+                                          : theme.scaffoldBackgroundColor,
                                   fontWeight: FontWeight.bold),
                             )),
                           )
@@ -118,9 +132,10 @@ class HomeScreen extends StatelessWidget {
                               },
                               indicatorPadding: EdgeInsets.all(0),
                               indicatorColor: Colors.transparent,
-                              labelColor: appProvider.themeMode == ThemeMode.light
-                                  ? theme.primaryColor
-                                  : Colors.white,
+                              labelColor:
+                                  appProvider.themeMode == ThemeMode.light
+                                      ? theme.primaryColor
+                                      : Colors.white,
                               dividerColor: Colors.transparent,
                               isScrollable: true,
                               tabAlignment: TabAlignment.start,
@@ -204,6 +219,12 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            // body: ListView.builder(
+            //   itemCount: provider.events.length,
+            //   itemBuilder: (context, index) {
+            //     return EventCardWidget(event: provider.events[index]);
+            //   },
+            // ),
           );
         },
       ),

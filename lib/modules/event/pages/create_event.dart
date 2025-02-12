@@ -4,9 +4,10 @@ import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
 import 'package:event_app/modules/event/manager/event_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../core/constants/app_categories.dart';
 import '../../../localization_helper.dart';
 
@@ -110,6 +111,7 @@ class CreateEvent extends StatelessWidget {
                     height: size.height * 0.007,
                   ),
                   CustomTextFormFiled(
+                    controller: provider.titleController,
                     prefixIcon: ImageIcon(
                       AssetImage(AppAssets.titleIcon),
                       color: appProvider.themeMode == ThemeMode.light
@@ -126,10 +128,10 @@ class CreateEvent extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.007,
                   ),
-
                   SizedBox(
                     height: 150,
                     child: TextFormField(
+                      controller: provider.descController,
                       maxLines: null,
                       minLines: null,
                       expands: true,
@@ -168,8 +170,9 @@ class CreateEvent extends StatelessWidget {
                         },
                         child: Text(
                           provider.selectedDate != null
-                              ?  DateFormat.yMMMMd(AppLocalizations.of(context)!.localeName)
-                              .format(provider.selectedDate!)
+                              ? DateFormat.yMMMMd(
+                                      AppLocalizations.of(context)!.localeName)
+                                  .format(provider.selectedDate!)
                               : AppLocalizations.of(context)!.ca_chooseDate,
                           style: theme.textTheme.bodyMedium!
                               .copyWith(color: theme.primaryColor),
@@ -200,8 +203,14 @@ class CreateEvent extends StatelessWidget {
                         },
                         child: Text(
                           provider.selectedTime != null
-                              ? DateFormat.jm(AppLocalizations.of(context)!.localeName)
-                              .format(DateTime(2000, 1, 1, provider.selectedTime!.hour, provider.selectedTime!.minute))
+                              ? DateFormat.jm(
+                                      AppLocalizations.of(context)!.localeName)
+                                  .format(DateTime(
+                                      2000,
+                                      1,
+                                      1,
+                                      provider.selectedTime!.hour,
+                                      provider.selectedTime!.minute))
                               : AppLocalizations.of(context)!.ca_chooseTime,
                           style: theme.textTheme.bodyMedium!
                               .copyWith(color: theme.primaryColor),
@@ -212,7 +221,9 @@ class CreateEvent extends StatelessWidget {
                   Spacer(),
                   CustomButton(
                       text: AppLocalizations.of(context)!.ca_addEvent,
-                      onTap: () {}),
+                      onTap: () {
+                        provider.addEvent(context);
+                      }),
                   Spacer(),
                 ],
               );
