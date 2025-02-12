@@ -5,7 +5,7 @@ import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
-import 'package:event_app/models/auth/manager/auth_provider.dart';
+import 'package:event_app/modules/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Consumer<AuthProvider>(
                   builder: (context, provider, child) {
-                    return   Form(
+                    return Form(
                       key: provider.formKey,
                       child: Column(
                         children: [
@@ -40,7 +40,8 @@ class LoginScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,
-                                  fontFamily: GoogleFonts.jockeyOne().fontFamily,
+                                  fontFamily:
+                                      GoogleFonts.jockeyOne().fontFamily,
                                   color: theme.primaryColor),
                             ),
                           ),
@@ -50,14 +51,18 @@ class LoginScreen extends StatelessWidget {
                           CustomTextFormFiled(
                             controller: provider.emailController,
                             validator: (value) {
-                              if(value==null||value.isEmpty){
+                              if (value == null || value.isEmpty) {
                                 return "Invalid value";
-                              }
-                              else{
+                              } else {
                                 return null;
                               }
                             },
-                            prefixIcon: Icon(Icons.email_rounded),
+                            prefixIcon: Icon(
+                              Icons.email_rounded,
+                              color: appProvider.themeMode == ThemeMode.light
+                                  ? Colors.grey
+                                  : Colors.white,
+                            ),
                             labelText: AppLocalizations.of(context)!.l_email,
                           ),
                           SizedBox(
@@ -66,10 +71,9 @@ class LoginScreen extends StatelessWidget {
                           CustomTextFormFiled(
                             controller: provider.passwordController,
                             validator: (value) {
-                              if(value==null||value.isEmpty){
+                              if (value == null || value.isEmpty) {
                                 return "Invalid value";
-                              }
-                              else{
+                              } else {
                                 return null;
                               }
                             },
@@ -104,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                           CustomButton(
                             text: AppLocalizations.of(context)!.l_login,
                             onTap: () {
-                              if(provider.formKey.currentState!.validate()){
+                              if (provider.formKey.currentState!.validate()) {
                                 provider.login(context);
                               }
                             },
@@ -144,10 +148,10 @@ class LoginScreen extends StatelessWidget {
                             children: [
                               Expanded(
                                   child: Divider(
-                                    color: theme.primaryColor,
-                                    endIndent: 20,
-                                    indent: 20,
-                                  )),
+                                color: theme.primaryColor,
+                                endIndent: 20,
+                                indent: 20,
+                              )),
                               Text(
                                 AppLocalizations.of(context)!.l_or,
                                 style: theme.textTheme.bodyMedium!
@@ -155,10 +159,10 @@ class LoginScreen extends StatelessWidget {
                               ),
                               Expanded(
                                   child: Divider(
-                                    color: theme.primaryColor,
-                                    endIndent: 20,
-                                    indent: 20,
-                                  )),
+                                color: theme.primaryColor,
+                                endIndent: 20,
+                                indent: 20,
+                              )),
                             ],
                           ),
                           SizedBox(
@@ -169,13 +173,15 @@ class LoginScreen extends StatelessWidget {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                      appProvider.themeMode == ThemeMode.light
+                                      backgroundColor: appProvider.themeMode ==
+                                              ThemeMode.light
                                           ? Colors.white
                                           : theme.scaffoldBackgroundColor,
                                       shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(16),
-                                          side: BorderSide(color: theme.primaryColor)),
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          side: BorderSide(
+                                              color: theme.primaryColor)),
                                       padding: EdgeInsets.all(16)),
                                   onPressed: () {},
                                   child: Row(
@@ -191,7 +197,8 @@ class LoginScreen extends StatelessWidget {
                                       Text(
                                         AppLocalizations.of(context)!.l_google,
                                         style: TextStyle(
-                                            fontFamily: GoogleFonts.inter().fontFamily,
+                                            fontFamily:
+                                                GoogleFonts.inter().fontFamily,
                                             color: theme.primaryColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20),
@@ -253,7 +260,6 @@ class LoginScreen extends StatelessWidget {
                       ),
                     );
                   },
-
                 ),
               ),
             ),

@@ -1,7 +1,7 @@
 import 'package:event_app/core/constants/app_assets.dart';
 import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
-import 'package:event_app/models/auth/manager/auth_provider.dart';
+import 'package:event_app/modules/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/manager/app_provider.dart';
@@ -22,20 +22,15 @@ class ForgetPasswordScreen extends StatelessWidget {
         builder: (context, provider, child) {
           return Scaffold(
             appBar: AppBar(
-                title: Text(
-                  AppLocalizations.of(context)!.f_forget,
-                ),
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, RoutesName.loginScreen);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: appProvider.themeMode == ThemeMode.light
-                          ? Colors.black
-                          : theme.primaryColor,
-                    ))),
+              title: Text(
+                AppLocalizations.of(context)!.f_forget,
+              ),
+              iconTheme: IconThemeData(
+                color: appProvider.themeMode == ThemeMode.light
+                    ? Colors.black
+                    : theme.primaryColor,
+              ),
+            ),
             body: Form(
               key: provider.formKey,
               child: SingleChildScrollView(
@@ -49,12 +44,17 @@ class ForgetPasswordScreen extends StatelessWidget {
                       ),
                       CustomTextFormFiled(
                         validator: (value) {
-                          if(value!.isEmpty){
+                          if (value!.isEmpty) {
                             return "Invalid Email";
                           }
                         },
                         controller: provider.emailController,
-                        prefixIcon: Icon(Icons.email_rounded),
+                        prefixIcon: Icon(
+                          Icons.email_rounded,
+                          color: appProvider.themeMode == ThemeMode.light
+                              ? Colors.grey
+                              : Colors.white,
+                        ),
                         labelText: AppLocalizations.of(context)!.l_email,
                       ),
                       SizedBox(
@@ -63,10 +63,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                       CustomButton(
                           text: AppLocalizations.of(context)!.f_reset,
                           onTap: () {
-                            if(provider.formKey.currentState!.validate()){
+                            if (provider.formKey.currentState!.validate()) {
                               provider.resetPassword(context);
                             }
-
                           })
                     ],
                   ),

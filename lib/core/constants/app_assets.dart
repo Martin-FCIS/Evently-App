@@ -54,4 +54,12 @@ class AppAssets{
   static const String birthdayCat = "assets/icons/cat_icons/birthday_icon.png";
 
 
+  static const String titleIcon = "assets/icons/add_event_icons/add_title.png";
+  static const String clockIcon = "assets/icons/add_event_icons/clock.png";
+  static const String calenderIcon = "assets/icons/add_event_icons/calender.png";
+
+
+
+
+
 }

@@ -44,5 +44,15 @@
     "holiday": "Holiday",
     "exhibition": "Exhibition",
     "workshop": "WorkShop",
-    "book_club": "Book Club"
+    "book_club": "Book Club",
+    "ca_createAcc": "Create Account",
+    "ca_title": "Title",
+    "ca_eventTitle": "Event Title",
+    "ca_desc": "Description",
+    "ca_eventDesc": "Event Description",
+    "ca_eventDate": "Event Date",
+    "ca_chooseDate": "Choose Date",
+    "ca_eventTime": "Event Time",
+    "ca_chooseTime": "Choose Time",
+    "ca_addEvent": "Add Event"
 }

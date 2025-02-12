@@ -44,6 +44,16 @@
     "holiday": "عطلة",
     "exhibition": "معرض",
     "workshop": "ورشة عمل",
-    "book_club": "نادي الكتب"
+    "book_club": "نادي الكتب",
+    "ca_createAcc": "إنشاء حساب",
+    "ca_title": "العنوان",
+    "ca_eventTitle": "عنوان الحدث",
+    "ca_desc": "الوصف",
+    "ca_eventDesc": "وصف الحدث",
+    "ca_eventDate": "تاريخ الحدث",
+    "ca_chooseDate": "اختر التاريخ",
+    "ca_eventTime": "وقت الحدث",
+    "ca_chooseTime": "اختر الوقت",
+    "ca_addEvent": "إضافة حدث"
 
 }

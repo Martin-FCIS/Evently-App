@@ -1,7 +1,7 @@
-import 'package:event_app/models/layout/pages/screens/fav_screen.dart';
-import 'package:event_app/models/layout/pages/screens/home_screen.dart';
-import 'package:event_app/models/layout/pages/screens/map_screen.dart';
-import 'package:event_app/models/layout/pages/screens/profile_screen.dart';
+import 'package:event_app/modules/layout/pages/screens/fav_screen.dart';
+import 'package:event_app/modules/layout/pages/screens/home_screen.dart';
+import 'package:event_app/modules/layout/pages/screens/map_screen.dart';
+import 'package:event_app/modules/layout/pages/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 class LayoutProvider extends ChangeNotifier {

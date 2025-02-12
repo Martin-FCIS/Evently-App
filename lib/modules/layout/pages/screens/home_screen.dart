@@ -1,8 +1,8 @@
 import 'package:event_app/core/constants/app_categories.dart';
 import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/localization_helper.dart';
-import 'package:event_app/models/layout/manager/layout_provider.dart';
-import 'package:event_app/models/layout/widgets/event_card_widget.dart';
+import 'package:event_app/modules/layout/manager/layout_provider.dart';
+import 'package:event_app/modules/layout/widgets/event_card_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -75,6 +75,7 @@ flutter:
     - assets/icons/
     - assets/icons/btn_nav/
     - assets/icons/cat_icons/
+    - assets/icons/add_event_icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

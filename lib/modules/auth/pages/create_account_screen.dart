@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
-import 'package:event_app/models/auth/manager/auth_provider.dart';
+import 'package:event_app/modules/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,20 +24,15 @@ class CreateAccountScreen extends StatelessWidget {
       create: (context) => AuthProvider(),
       child: Scaffold(
         appBar: AppBar(
-            title: Text(
-              AppLocalizations.of(context)!.c_reg,
-            ),
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, RoutesName.loginScreen);
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: appProvider.themeMode == ThemeMode.light
-                      ? Colors.black
-                      : theme.primaryColor,
-                ))),
+          title: Text(
+            AppLocalizations.of(context)!.c_reg,
+          ),
+          iconTheme: IconThemeData(
+            color: appProvider.themeMode == ThemeMode.light
+                ? Colors.black
+                : theme.primaryColor,
+          ),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Center(
@@ -74,7 +69,12 @@ class CreateAccountScreen extends StatelessWidget {
                               }
                             },
                             labelText: AppLocalizations.of(context)!.c_name,
-                            prefixIcon: Icon(Icons.person_rounded),
+                            prefixIcon: Icon(
+                              Icons.person_rounded,
+                              color: appProvider.themeMode == ThemeMode.light
+                                  ? Colors.grey
+                                  : Colors.white,
+                            ),
                           ),
                           SizedBox(
                             height: size.height * 0.02,
@@ -91,7 +91,12 @@ class CreateAccountScreen extends StatelessWidget {
                               }
                             },
                             labelText: AppLocalizations.of(context)!.l_email,
-                            prefixIcon: Icon(Icons.email_rounded),
+                            prefixIcon: Icon(
+                              Icons.email_rounded,
+                              color: appProvider.themeMode == ThemeMode.light
+                                  ? Colors.grey
+                                  : Colors.white,
+                            ),
                           ),
                           SizedBox(
                             height: size.height * 0.02,

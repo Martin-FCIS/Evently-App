@@ -1,6 +1,7 @@
 import 'package:event_app/core/constants/app_assets.dart';
 import 'package:event_app/core/manager/app_provider.dart';
-import 'package:event_app/models/layout/manager/layout_provider.dart';
+import 'package:event_app/core/routes/app_routes_name.dart';
+import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,9 @@ class LayoutScreen extends StatelessWidget {
               backgroundColor: appProvider.themeMode == ThemeMode.light
                   ? theme.primaryColor
                   : theme.scaffoldBackgroundColor,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, RoutesName.createEventScreen);
+              },
               child: Icon(
                 Icons.add,
                 color: Colors.white,
