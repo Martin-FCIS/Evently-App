@@ -15,7 +15,6 @@ class FavScreen extends StatefulWidget {
 class _FavScreenState extends State<FavScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     Provider.of<LayoutProvider>(context, listen: false).getEventsFavStream();
     super.initState();
   }
