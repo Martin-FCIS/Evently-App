@@ -22,9 +22,26 @@ class FirebaseDatabase {
     return doc.set(data);
   }
 
+  static Future<void> addFav(EventModel data) {
+    var ref = getRef();
+    var doc = ref.doc(data.id);
+    data.isFav = !data.isFav;
+    return doc.set(data);
+  }
+
   static Future<List<QueryDocumentSnapshot<EventModel>>> getEvent() async {
     var ref = getRef();
     var data = await ref.get();
     return data.docs;
+  }
+
+  static Stream<QuerySnapshot<EventModel>> getEventsStream() {
+    var ref = getRef();
+    return ref.snapshots();
+  }
+
+  static Stream<QuerySnapshot<EventModel>> getEventsFavStream() {
+    var ref = getRef().where("isFav", isEqualTo: true);
+    return ref.snapshots();
   }
 }

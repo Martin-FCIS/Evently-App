@@ -1,30 +1,21 @@
 import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/firebase_managre/models/event_model.dart';
+import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class EventCardWidget extends StatelessWidget {
-  String lightImage;
-  String darkImage;
-  String day;
-  String month;
-  String title;
-  EventModel? event;
+  EventModel event;
 
-  EventCardWidget(
-      {super.key,
-      required this.lightImage,
-      required this.darkImage,
-      required this.day,
-      required this.title,
-      required this.month,
-      this.event});
+  EventCardWidget({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
     var appProvider = Provider.of<AppProvider>(context);
+    var provider = Provider.of<LayoutProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
       child: Column(
@@ -37,8 +28,8 @@ class EventCardWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(appProvider.themeMode == ThemeMode.light
-                        ? lightImage
-                        : darkImage),
+                        ? event.categoryImageLight
+                        : event.categoryImageDark),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: theme.primaryColor)),
@@ -55,13 +46,14 @@ class EventCardWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        day,
+                        // event.date,
+                        DateFormat("d").format(DateTime.parse(event.date)),
                         style: theme.textTheme.bodyLarge!.copyWith(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        month,
+                        DateFormat("MMM").format(DateTime.parse(event.date)),
                         style: theme.textTheme.bodyLarge!.copyWith(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold),
@@ -80,15 +72,22 @@ class EventCardWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        title,
+                        event.title,
                         style: theme.textTheme.bodyLarge!.copyWith(
                             color: theme.primaryColorDark,
                             fontWeight: FontWeight.bold),
                       ),
                       Spacer(),
-                      Icon(
-                        Icons.favorite_border_rounded,
-                        color: theme.primaryColor,
+                      InkWell(
+                        onTap: () {
+                          provider.addFav(event);
+                        },
+                        child: Icon(
+                          event.isFav
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
+                          color: theme.primaryColor,
+                        ),
                       )
                     ],
                   ),

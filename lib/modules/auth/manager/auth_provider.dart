@@ -16,8 +16,7 @@ class AuthProvider extends ChangeNotifier {
     if (formKey.currentState!.validate()) {
       user = await FirebaseAuthManager.createAccount(
           nameController.text, emailController.text, passwordController.text);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Container(
             padding: EdgeInsets.all(12),
             margin: EdgeInsets.all(8),
@@ -25,14 +24,14 @@ class AuthProvider extends ChangeNotifier {
               color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(16),
             ),
-            child:
-            Text("Account Created Successfully")),
+            child: Text("Account Created Successfully")),
         backgroundColor: Colors.transparent,
         elevation: 0,
         closeIconColor: Colors.red,
         showCloseIcon: false,
+        duration: Duration(seconds: 1),
       ));
-      Future.delayed(Duration(seconds: 2  ), () {
+      Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
       });
       notifyListeners();
@@ -56,8 +55,11 @@ class AuthProvider extends ChangeNotifier {
         elevation: 0,
         closeIconColor: Colors.red,
         showCloseIcon: true,
+        duration: Duration(seconds: 1),
       ));
+      Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(context, RoutesName.layoutScreen);
+      });
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

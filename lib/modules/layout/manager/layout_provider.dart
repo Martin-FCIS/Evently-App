@@ -17,6 +17,7 @@ class LayoutProvider extends ChangeNotifier {
     ProfileScreen()
   ];
   List<EventModel> events = [];
+  List<EventModel> favEvents = [];
 
   void changeBtnNavIndex(int value) {
     selectedIndex = value;
@@ -30,9 +31,47 @@ class LayoutProvider extends ChangeNotifier {
 
   Future<void> getEvents() async {
     var data = await FirebaseDatabase.getEvent();
+    print("Raw Firebase Data: $data");
+    events.clear();
     for (var e in data) {
+      print("Event Data: ${e.data()}");
       events.add(e.data());
     }
+    print("Final Events List: $events");
     notifyListeners();
+  }
+
+  void getEventsStream() async {
+    ///magic => كل م يحصل تغيير في الداتا هتعرضه في الui
+    events.clear();
+
+    FirebaseDatabase.getEventsStream().listen(
+      (event) {
+        events.clear();
+        for (var e in event.docs) {
+          print("Event Data: ${e.data()}");
+          events.add(e.data());
+          notifyListeners();
+        }
+      },
+    );
+  }
+
+  void getEventsFavStream() async {
+    favEvents.clear();
+    FirebaseDatabase.getEventsFavStream().listen(
+      (event) {
+        favEvents.clear();
+        for (var e in event.docs) {
+          print("Event Data: ${e.data()}");
+          favEvents.add(e.data());
+          notifyListeners();
+        }
+      },
+    );
+  }
+
+  Future<void> addFav(EventModel data) {
+    return FirebaseDatabase.addFav(data);
   }
 }

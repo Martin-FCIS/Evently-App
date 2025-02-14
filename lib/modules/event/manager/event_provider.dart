@@ -1,4 +1,5 @@
 import 'package:event_app/core/constants/app_categories.dart';
+import 'package:event_app/core/themes/app_colors.dart';
 import 'package:event_app/firebase_managre/firebase_database.dart';
 import 'package:event_app/firebase_managre/models/event_model.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ class EventProvider extends ChangeNotifier {
   int selectedTabIndex = 1;
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
+  bool isDate = false;
+  bool isTime = false;
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
 
@@ -24,8 +27,11 @@ class EventProvider extends ChangeNotifier {
             lastDate: DateTime.now().add(Duration(days: 365)))
         .then(
       (value) {
-        selectedDate = value;
-        notifyListeners();
+        if (value != null) {
+          isDate = true;
+          selectedDate = value;
+          notifyListeners();
+        }
       },
     );
   }
@@ -33,26 +39,64 @@ class EventProvider extends ChangeNotifier {
   void selectTime(BuildContext context) {
     showTimePicker(context: context, initialTime: TimeOfDay.now()).then(
       (value) {
-        selectedTime = value;
-        notifyListeners();
+        if (value != null) {
+          isTime = true;
+          selectedTime = value;
+          notifyListeners();
+        }
       },
     );
   }
 
   Future<void> addEvent(BuildContext context) async {
-    EventModel data = EventModel(
-        title: titleController.text,
-        desc: descController.text,
-        date: selectedDate.toString(),
-        time: selectedTime.toString(),
-        categoryID: AppCategories.categories[selectedTabIndex].id,
-        categoryName: AppCategories.categories[selectedTabIndex].name,
-        categoryImageLight:
-            AppCategories.categories[selectedTabIndex].lightimage);
-    // categoryImageDark:
-    //     AppCategories.categories[selectedTabIndex].darkimage);
-    await FirebaseDatabase.addEvent(data);
-    Navigator.pop(context);
+    if (!isDate || !isTime) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+                !isDate ? "You must Choose Date" : "You must Choose Time")),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        closeIconColor: Colors.red,
+        showCloseIcon: true,
+      ));
+    } else {
+      EventModel data = EventModel(
+          title: titleController.text,
+          desc: descController.text,
+          date: selectedDate.toString(),
+          time: selectedTime.toString(),
+          categoryID: AppCategories.categories[selectedTabIndex].id,
+          categoryName: AppCategories.categories[selectedTabIndex].name,
+          categoryImageLight:
+              AppCategories.categories[selectedTabIndex].lightimage,
+          categoryImageDark:
+              AppCategories.categories[selectedTabIndex].darkimage);
+      await FirebaseDatabase.addEvent(data);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: Duration(seconds: 1),
+        content: Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text("Event Created Successfully")),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        closeIconColor: Colors.red,
+        showCloseIcon: false,
+      ));
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pop(context);
+      });
+    }
     notifyListeners();
   }
 }

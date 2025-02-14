@@ -56,8 +56,6 @@ class CreateEvent extends StatelessWidget {
                       child: TabBar(
                           onTap: (value) {
                             provider.changeTabIndex(value + 1);
-                            provider.selectedDate = null;
-                            provider.selectedTime = null;
                           },
                           indicatorPadding: EdgeInsets.all(0),
                           indicatorColor: Colors.transparent,

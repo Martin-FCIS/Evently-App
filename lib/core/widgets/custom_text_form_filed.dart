@@ -21,7 +21,7 @@ class CustomTextFormFiled extends StatefulWidget {
       this.validator,
       this.isPassword = false,
       this.labelText,
-      this.labelColor,
+      this.labelColor = null,
       // this.isExpanded,
       this.prefixIcon,
       this.suffixIcon});
@@ -46,10 +46,6 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
       // textAlignVertical:TextAlignVertical.top,
       decoration: InputDecoration(
         // alignLabelWithHint: true,
-        labelStyle: TextStyle(
-            color: appProvider.themeMode == ThemeMode.light
-                ? Colors.grey
-                : Colors.white),
         prefixIcon: widget.isPassword
             ? Icon(
                 Icons.lock,
@@ -58,6 +54,11 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                     : Colors.white,
               )
             : widget.prefixIcon,
+        labelStyle: TextStyle(
+            color: widget.labelColor ??
+                (appProvider.themeMode == ThemeMode.light
+                    ? Colors.grey
+                    : Colors.white)),
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {

@@ -3,9 +3,9 @@ import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});

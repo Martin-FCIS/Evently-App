@@ -1,11 +1,10 @@
-class AppAssets{
-  AppAssets._();//private constructor
+class AppAssets {
+  AppAssets._(); //private constructor
 
   //logos
   static const String eventLogo = "assets/logo/event_logo.png";
   static const String routeLogo = "assets/logo/route_logo.png";
   static const String routeProfileLogo = "assets/logo/route_profile_logo.png";
-
 
   //images
   static const String startLight = "assets/images/start_light.png";
@@ -30,7 +29,6 @@ class AppAssets{
   static const String workshopDark = "assets/images/Work_Shop_Dark.png";
   static const String bookClubDark = "assets/images/Book_Club_Dark.png";
 
-
   //icons
   static const String egyIcon = "assets/icons/EG.png";
   static const String americanIcon = "assets/icons/LR.png";
@@ -38,28 +36,26 @@ class AppAssets{
   static const String sunIcon = "assets/icons/Sun.png";
   static const String googleIcon = "assets/icons/Google.png";
 
-
   static const String homeIcon = "assets/icons/btn_nav/home.svg";
-  static const String selectedHomeIcon = "assets/icons/btn_nav/selected_home.svg";
+  static const String selectedHomeIcon =
+      "assets/icons/btn_nav/selected_home.svg";
   static const String mapIcon = "assets/icons/btn_nav/map.svg";
   static const String selectedMapIcon = "assets/icons/btn_nav/selected_map.svg";
   static const String favIcon = "assets/icons/btn_nav/heart.svg";
-  static const String selectedFavIcon = "assets/icons/btn_nav/selected_heart.svg";
+  static const String selectedFavIcon =
+      "assets/icons/btn_nav/selected_heart.svg";
   static const String userIcon = "assets/icons/btn_nav/user.svg";
-  static const String selectedUserIcon = "assets/icons/btn_nav/selected_user.svg";
-
+  static const String selectedUserIcon =
+      "assets/icons/btn_nav/selected_user.svg";
 
   static const String allCat = "assets/icons/cat_icons/all_icon.png";
   static const String sportCat = "assets/icons/cat_icons/sport_icon.png";
   static const String birthdayCat = "assets/icons/cat_icons/birthday_icon.png";
 
-
   static const String titleIcon = "assets/icons/add_event_icons/add_title.png";
   static const String clockIcon = "assets/icons/add_event_icons/clock.png";
-  static const String calenderIcon = "assets/icons/add_event_icons/calender.png";
+  static const String calenderIcon =
+      "assets/icons/add_event_icons/calender.png";
 
-
-
-
-
+  static const String searchIcon = "assets/icons/Icon Frame.png";
 }
