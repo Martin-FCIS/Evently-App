@@ -49,4 +49,8 @@ class FirebaseDatabase {
         .where("isFav", isEqualTo: true);
     return ref.snapshots();
   }
+
+// static Future<DocumentSnapshot<EventModel>> getEventById(String eventId) {
+//   return getRef().doc(eventId).get();
+// }
 }

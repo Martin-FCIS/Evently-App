@@ -9,6 +9,7 @@ import 'package:event_app/modules/splash/pages/splash_Screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../modules/auth/pages/login_screen.dart';
+import '../../modules/event/pages/event_details.dart';
 
 class AppRoutes {
   static Map<String, Widget Function(BuildContext)> routes = {
@@ -20,5 +21,6 @@ class AppRoutes {
     RoutesName.layoutScreen: (_) => LayoutScreen(),
     RoutesName.createEventScreen: (_) => CreateEvent(),
     RoutesName.onboardingScreen: (_) => OnboardingScreen(),
+    RoutesName.eventDetailsScreen: (_) => EventDetails(),
   };
 }

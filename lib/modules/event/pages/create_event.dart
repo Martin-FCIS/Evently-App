@@ -23,11 +23,12 @@ class CreateEvent extends StatelessWidget {
       create: (context) => EventProvider(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.ca_createAcc),
+          title: Text(
+            AppLocalizations.of(context)!.ca_createAcc,
+            style: TextStyle(color: theme.primaryColor),
+          ),
           iconTheme: IconThemeData(
-            color: appProvider.themeMode == ThemeMode.light
-                ? Colors.black
-                : theme.primaryColor,
+            color: theme.primaryColor,
           ),
         ),
         body: Padding(

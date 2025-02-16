@@ -13,6 +13,7 @@ class EventProvider extends ChangeNotifier {
   bool isTime = false;
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  EventModel? event;
 
   void changeTabIndex(int value) {
     selectedTabIndex = value;
@@ -101,4 +102,14 @@ class EventProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+// Future<void> fetchEventById(String eventId) async {
+//   try {
+//     var doc = await FirebaseDatabase.getEventById(eventId);
+//     event = doc.data()!;
+//   } catch (e) {
+//     print("Error fetching event: $e");
+//   }
+//   notifyListeners();
+// }
 }

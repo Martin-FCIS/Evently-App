@@ -64,4 +64,7 @@ class AppAssets {
       "assets/icons/add_event_icons/calender.png";
 
   static const String searchIcon = "assets/icons/Icon Frame.png";
+
+  static const String editEventIcon = "assets/icons/edit.png";
+  static const String deleteEventIcon = "assets/icons/delete.png";
 }
