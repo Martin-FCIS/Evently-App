@@ -28,6 +28,12 @@ class AppAssets {
   static const String exhibitionDark = "assets/images/Exhibition_Dark.png";
   static const String workshopDark = "assets/images/Work_Shop_Dark.png";
   static const String bookClubDark = "assets/images/Book_Club_Dark.png";
+  static const String onboarding1Light = "assets/images/onboarding1_light.png";
+  static const String onboarding2Light = "assets/images/onboarding2_light.png";
+  static const String onboarding3Light = "assets/images/onboarding3_light.png";
+  static const String onboarding1Dark = "assets/images/onboarding1_dark.png";
+  static const String onboarding2Dark = "assets/images/onboarding2_dark.png";
+  static const String onboarding3Dark = "assets/images/onboarding3_dark.png";
 
   //icons
   static const String egyIcon = "assets/icons/EG.png";

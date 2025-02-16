@@ -5,9 +5,9 @@ import 'package:event_app/core/manager/app_provider.dart';
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -16,7 +16,7 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var theme = Theme.of(context);
-    var provider = Provider.of<AppProvider>(context);
+    var appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -87,10 +87,10 @@ class StartScreen extends StatelessWidget {
                     ),
                     AnimatedToggleSwitch<String>.rolling(
                       textDirection: TextDirection.ltr,
-                      current: provider.lang,
+                      current: appProvider.lang,
                       values: ["en", "ar"],
                       onChanged: (value) {
-                        provider.changeLanguage();
+                        appProvider.changeLanguage();
                       },
                       iconList: [
                         Image.asset(AppAssets.americanIcon),
@@ -121,16 +121,16 @@ class StartScreen extends StatelessWidget {
                     ),
                     AnimatedToggleSwitch<ThemeMode>.rolling(
                       textDirection: TextDirection.ltr,
-                      current: provider.themeMode,
+                      current: appProvider.themeMode,
                       values: [ThemeMode.light, ThemeMode.dark],
                       onChanged: (value) {
-                        provider.changeTheme();
+                        appProvider.changeTheme();
                       },
                       iconList: [
                         Image.asset(AppAssets.sunIcon),
                         Image.asset(
                           AppAssets.moonIcon,
-                          color: provider.themeMode == ThemeMode.dark
+                          color: appProvider.themeMode == ThemeMode.dark
                               ? Colors.white
                               : null,
                         ),
@@ -152,7 +152,7 @@ class StartScreen extends StatelessWidget {
                 text: AppLocalizations.of(context)!.l_start,
                 onTap: () {
                   Navigator.pushReplacementNamed(
-                      context, RoutesName.loginScreen);
+                      context, RoutesName.onboardingScreen);
                 },
               ),
             ],
