@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:event_app/firebase_managre/models/event_model.dart';
+import 'package:event_app/firebase_manager/models/event_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseDatabase {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -30,18 +31,22 @@ class FirebaseDatabase {
   }
 
   static Future<List<QueryDocumentSnapshot<EventModel>>> getEvent() async {
-    var ref = getRef();
+    var ref = getRef()
+        .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid);
     var data = await ref.get();
     return data.docs;
   }
 
   static Stream<QuerySnapshot<EventModel>> getEventsStream() {
-    var ref = getRef();
+    var ref = getRef()
+        .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid);
     return ref.snapshots();
   }
 
   static Stream<QuerySnapshot<EventModel>> getEventsFavStream() {
-    var ref = getRef().where("isFav", isEqualTo: true);
+    var ref = getRef()
+        .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where("isFav", isEqualTo: true);
     return ref.snapshots();
   }
 }

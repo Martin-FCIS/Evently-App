@@ -1,8 +1,9 @@
 import 'package:event_app/core/constants/app_categories.dart';
 import 'package:event_app/core/themes/app_colors.dart';
-import 'package:event_app/firebase_managre/firebase_database.dart';
-import 'package:event_app/firebase_managre/models/event_model.dart';
+import 'package:event_app/firebase_manager/firebase_database.dart';
+import 'package:event_app/firebase_manager/models/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventProvider extends ChangeNotifier {
   int selectedTabIndex = 1;
@@ -58,8 +59,9 @@ class EventProvider extends ChangeNotifier {
               color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Text(
-                !isDate ? "You must Choose Date" : "You must Choose Time")),
+            child: Text(!isDate
+                ? AppLocalizations.of(context)!.sb_YouMustChooseDate
+                : AppLocalizations.of(context)!.sb_YouMustChooseTime)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         closeIconColor: Colors.red,
@@ -87,7 +89,7 @@ class EventProvider extends ChangeNotifier {
               color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Text("Event Created Successfully")),
+            child: Text(AppLocalizations.of(context)!.sb_createEvent)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         closeIconColor: Colors.red,

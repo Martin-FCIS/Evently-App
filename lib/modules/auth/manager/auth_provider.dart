@@ -1,8 +1,9 @@
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/themes/app_colors.dart';
-import 'package:event_app/firebase_managre/firebase_auth_manager.dart';
+import 'package:event_app/firebase_manager/firebase_auth_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthProvider extends ChangeNotifier {
   final TextEditingController nameController = TextEditingController();
@@ -24,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
               color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Text("Account Created Successfully")),
+            child: Text(AppLocalizations.of(context)!.sb_accCreatedSuc)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         closeIconColor: Colors.red,
@@ -44,13 +45,20 @@ class AuthProvider extends ChangeNotifier {
     if (user?.user != null) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Container(
-            padding: EdgeInsets.all(12),
-            margin: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(16),
+          padding: EdgeInsets.all(12),
+          margin: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.primaryColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(children: [
+            Text(AppLocalizations.of(context)!.sb_welcome),
+            SizedBox(
+              width: 10,
             ),
-            child: Text("Welcom ${user?.user?.displayName ?? ""}")),
+            Text("' ${user?.user?.displayName} '" ?? " "),
+          ]),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         closeIconColor: Colors.red,
@@ -70,7 +78,8 @@ class AuthProvider extends ChangeNotifier {
               color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Text("Invalid email or password")),
+            child:
+                Text(AppLocalizations.of(context)!.sb_InvalidEmailOrPassword)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         closeIconColor: Colors.red,
@@ -89,8 +98,13 @@ class AuthProvider extends ChangeNotifier {
             color: AppColors.primaryColor,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Text(
-              "The password reset link has been sent to [${emailController.text}]")),
+          child: Row(children: [
+            Text(AppLocalizations.of(context)!.sb_resetPass),
+            SizedBox(
+              width: 10,
+            ),
+            Text("' ${emailController.text} '" ?? " "),
+          ])),
       backgroundColor: Colors.transparent,
       elevation: 0,
       closeIconColor: Colors.red,

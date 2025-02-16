@@ -1,5 +1,5 @@
 import 'package:event_app/core/manager/app_provider.dart';
-import 'package:event_app/firebase_managre/models/event_model.dart';
+import 'package:event_app/firebase_manager/models/event_model.dart';
 import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -80,7 +80,7 @@ class EventCardWidget extends StatelessWidget {
                       Spacer(),
                       InkWell(
                         onTap: () {
-                          provider.addFav(event);
+                          provider.addFav(event, context);
                         },
                         child: Icon(
                           event.isFav

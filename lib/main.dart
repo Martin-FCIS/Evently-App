@@ -4,13 +4,13 @@ import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/themes/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -25,9 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AppProvider()..getTheme()..getLang(),
+      create: (context) => AppProvider()
+        ..getTheme()
+        ..getLang(),
       builder: (context, child) {
-        var appProvider=Provider.of<AppProvider>(context);
+        var appProvider = Provider.of<AppProvider>(context);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
@@ -48,7 +50,6 @@ class MyApp extends StatelessWidget {
           initialRoute: RoutesName.splash,
         );
       },
-
     );
   }
 }

@@ -2,10 +2,11 @@ import 'package:event_app/modules/layout/pages/screens/fav_screen.dart';
 import 'package:event_app/modules/layout/pages/screens/home_screen.dart';
 import 'package:event_app/modules/layout/pages/screens/map_screen.dart';
 import 'package:event_app/modules/layout/pages/screens/profile_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../../../firebase_managre/firebase_database.dart';
-import '../../../firebase_managre/models/event_model.dart';
+import '../../../core/constants/app_categories.dart';
+import '../../../firebase_manager/firebase_database.dart';
+import '../../../firebase_manager/models/event_model.dart';
 
 class LayoutProvider extends ChangeNotifier {
   int selectedIndex = 0;
@@ -26,6 +27,7 @@ class LayoutProvider extends ChangeNotifier {
 
   void changeTabIndex(int value) {
     selectedTabIndex = value;
+    getEventsStream();
     notifyListeners();
   }
 
@@ -50,7 +52,11 @@ class LayoutProvider extends ChangeNotifier {
         events.clear();
         for (var e in event.docs) {
           print("Event Data: ${e.data()}");
-          events.add(e.data());
+          if (AppCategories.categories[selectedTabIndex].id == "all" ||
+              e.data().categoryID ==
+                  AppCategories.categories[selectedTabIndex].id) {
+            events.add(e.data());
+          }
           notifyListeners();
         }
       },
@@ -63,7 +69,6 @@ class LayoutProvider extends ChangeNotifier {
       (event) {
         favEvents.clear();
         for (var e in event.docs) {
-          print("Event Data: ${e.data()}");
           favEvents.add(e.data());
           notifyListeners();
         }
@@ -71,7 +76,20 @@ class LayoutProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> addFav(EventModel data) {
+  void search(String q) {
+    if (q.isEmpty) {
+      getEventsFavStream();
+    } else {
+      favEvents = favEvents.where(
+        (element) {
+          return element.title.toLowerCase().contains(q.toLowerCase());
+        },
+      ).toList();
+      notifyListeners();
+    }
+  }
+
+  Future<void> addFav(EventModel data, BuildContext context) {
     return FirebaseDatabase.addFav(data);
   }
 }

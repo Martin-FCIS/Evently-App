@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class EventModel {
   String? id;
+  String? userId;
   String title;
   String desc;
   String date;
@@ -21,7 +24,9 @@ class EventModel {
       required this.categoryName,
       this.isFav = false,
       required this.categoryImageLight,
-      required this.categoryImageDark});
+      required this.categoryImageDark}) {
+    userId = FirebaseAuth.instance.currentUser!.uid;
+  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -34,7 +39,8 @@ class EventModel {
       "categoryName": categoryName,
       "categoryImageLight": categoryImageLight,
       "categoryImageDark": categoryImageDark,
-      "isFav": isFav
+      "isFav": isFav,
+      "userId": userId
     };
   }
 

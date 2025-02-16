@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: provider.events.isEmpty
               ? Center(
                   child: Text(
-                    "No Favorite Events Yet",
+                    AppLocalizations.of(context)!.home_noEvents,
                     style: TextStyle(
                         color: theme.primaryColor,
                         fontWeight: FontWeight.bold,

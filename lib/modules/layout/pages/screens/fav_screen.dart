@@ -3,6 +3,7 @@ import 'package:event_app/core/widgets/custom_text_form_filed.dart';
 import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:event_app/modules/layout/widgets/event_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class FavScreen extends StatefulWidget {
@@ -34,15 +35,18 @@ class _FavScreenState extends State<FavScreen> {
                   AssetImage(AppAssets.searchIcon),
                   color: theme.primaryColor,
                 ),
-                labelText: "Search for Event",
+                labelText: AppLocalizations.of(context)!.fav_search,
                 labelColor: theme.primaryColor,
+                onChanged: (value) {
+                  provider.search(value);
+                },
               ),
             ),
             Expanded(
               child: provider.favEvents.isEmpty
                   ? Center(
                       child: Text(
-                        "No Favorite Events Yet",
+                        AppLocalizations.of(context)!.fav_noFav,
                         style: TextStyle(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold,

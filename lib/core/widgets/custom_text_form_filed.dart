@@ -8,6 +8,7 @@ class CustomTextFormFiled extends StatefulWidget {
   final bool isPassword;
   final String? labelText;
   Color? labelColor;
+  final Function(String value)? onChanged;
 
   // final int? minLines;
   // final int? maxLines;
@@ -23,6 +24,7 @@ class CustomTextFormFiled extends StatefulWidget {
       this.labelText,
       this.labelColor = null,
       // this.isExpanded,
+      this.onChanged,
       this.prefixIcon,
       this.suffixIcon});
 
@@ -37,6 +39,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
   Widget build(BuildContext context) {
     var appProvider = Provider.of<AppProvider>(context);
     return TextFormField(
+      onChanged: widget.onChanged,
       controller: widget.controller,
       obscureText: widget.isPassword ? !isShow : false,
       validator: widget.validator,
