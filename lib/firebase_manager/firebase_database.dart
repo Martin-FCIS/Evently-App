@@ -16,18 +16,18 @@ class FirebaseDatabase {
     );
   }
 
-  static Future<void> addEvent(EventModel data) {
+  static Future<void> addEvent(EventModel event) {
     var ref = getRef();
     var doc = ref.doc();
-    data.id = doc.id;
-    return doc.set(data);
+    event.id = doc.id;
+    return doc.set(event);
   }
 
-  static Future<void> addFav(EventModel data) {
+  static Future<void> addFav(EventModel event) {
     var ref = getRef();
-    var doc = ref.doc(data.id);
-    data.isFav = !data.isFav;
-    return doc.set(data);
+    var doc = ref.doc(event.id);
+    event.isFav = !event.isFav;
+    return doc.set(event);
   }
 
   static Future<List<QueryDocumentSnapshot<EventModel>>> getEvent() async {
@@ -50,7 +50,13 @@ class FirebaseDatabase {
     return ref.snapshots();
   }
 
-// static Future<DocumentSnapshot<EventModel>> getEventById(String eventId) {
-//   return getRef().doc(eventId).get();
-// }
+  static Future<void> deleteEvent(String id) async {
+    var ref = getRef();
+    await ref.doc(id).delete();
+  }
+
+  static Future<void> updateEvent(EventModel event) async {
+    var ref = getRef();
+    await ref.doc(event.id).update(event.toJson());
+  }
 }

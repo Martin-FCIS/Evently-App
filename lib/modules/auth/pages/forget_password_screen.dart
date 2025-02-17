@@ -3,10 +3,10 @@ import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
 import 'package:event_app/modules/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../core/manager/app_provider.dart';
-import '../../../core/routes/app_routes_name.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/manager/app_provider.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
@@ -55,7 +55,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                               ? Colors.grey
                               : Colors.white,
                         ),
-                        labelText: AppLocalizations.of(context)!.l_email,
+                        hintText: AppLocalizations.of(context)!.l_email,
                       ),
                       SizedBox(
                         height: size.height * 0.04,

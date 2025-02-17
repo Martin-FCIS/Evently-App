@@ -35,7 +35,7 @@ class _FavScreenState extends State<FavScreen> {
                   AssetImage(AppAssets.searchIcon),
                   color: theme.primaryColor,
                 ),
-                labelText: AppLocalizations.of(context)!.fav_search,
+                hintText: AppLocalizations.of(context)!.fav_search,
                 labelColor: theme.primaryColor,
                 onChanged: (value) {
                   provider.search(value);

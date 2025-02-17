@@ -6,7 +6,7 @@ class CustomTextFormFiled extends StatefulWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool isPassword;
-  final String? labelText;
+  final String? hintText;
   Color? labelColor;
   final Function(String value)? onChanged;
 
@@ -21,7 +21,7 @@ class CustomTextFormFiled extends StatefulWidget {
       this.controller,
       this.validator,
       this.isPassword = false,
-      this.labelText,
+      this.hintText,
       this.labelColor = null,
       // this.isExpanded,
       this.onChanged,
@@ -57,7 +57,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                     : Colors.white,
               )
             : widget.prefixIcon,
-        labelStyle: TextStyle(
+        hintStyle: TextStyle(
             color: widget.labelColor ??
                 (appProvider.themeMode == ThemeMode.light
                     ? Colors.grey
@@ -76,7 +76,7 @@ class _CustomTextFormFiledState extends State<CustomTextFormFiled> {
                     : Colors.white,
               )
             : widget.suffixIcon,
-        labelText: widget.labelText,
+        hintText: widget.hintText,
       ),
     );
   }

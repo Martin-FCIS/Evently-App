@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                                   ? Colors.grey
                                   : Colors.white,
                             ),
-                            labelText: AppLocalizations.of(context)!.l_email,
+                            hintText: AppLocalizations.of(context)!.l_email,
                           ),
                           SizedBox(
                             height: size.height * 0.02,
@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                                 return null;
                               }
                             },
-                            labelText: AppLocalizations.of(context)!.l_password,
+                            hintText: AppLocalizations.of(context)!.l_password,
                             isPassword: true,
                           ),
                           SizedBox(

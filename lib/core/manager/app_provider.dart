@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../themes/app_colors.dart';
+
 class AppProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.light;
   String lang = "en";
@@ -56,5 +58,38 @@ class AppProvider extends ChangeNotifier {
   Future<void> getLang() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     lang = prefs.getString("Lang") ?? "en";
+  }
+
+  void showSnackBar(
+      {required BuildContext context,
+      required String message,
+      required bool showCloseIcon,
+      bool isLoginOrResetPass = false,
+      String userNameOrEmail = ""}) {
+    final snackBar = SnackBar(
+      content: Container(
+        padding: EdgeInsets.all(12),
+        margin: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: !isLoginOrResetPass
+            ? Text(message)
+            : Row(children: [
+                Text(message),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(userNameOrEmail),
+              ]),
+      ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      closeIconColor: Colors.red,
+      showCloseIcon: showCloseIcon,
+      duration: Duration(seconds: 1),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

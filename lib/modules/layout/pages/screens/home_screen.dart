@@ -21,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<LayoutProvider>(context, listen: false).getEventsStream();
+    var provider = Provider.of<LayoutProvider>(context, listen: false);
+    provider.getEventsStream();
     super.initState();
   }
 
@@ -122,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: size.height * 0.02,
                     ),
                     DefaultTabController(
+                        initialIndex: provider.selectedTabIndex,
                         length: AppCategories.categories.length,
                         child: TabBar(
                             onTap: (value) {

@@ -4,13 +4,14 @@ import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
 import 'package:event_app/modules/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_regx.dart';
 import '../../../core/manager/app_provider.dart';
 import '../../../core/widgets/custom_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({super.key});
@@ -68,7 +69,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 return null;
                               }
                             },
-                            labelText: AppLocalizations.of(context)!.c_name,
+                            hintText: AppLocalizations.of(context)!.c_name,
                             prefixIcon: Icon(
                               Icons.person_rounded,
                               color: appProvider.themeMode == ThemeMode.light
@@ -90,7 +91,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 return null;
                               }
                             },
-                            labelText: AppLocalizations.of(context)!.l_email,
+                            hintText: AppLocalizations.of(context)!.l_email,
                             prefixIcon: Icon(
                               Icons.email_rounded,
                               color: appProvider.themeMode == ThemeMode.light
@@ -112,7 +113,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 return null;
                               }
                             },
-                            labelText: AppLocalizations.of(context)!.l_password,
+                            hintText: AppLocalizations.of(context)!.l_password,
                             isPassword: true,
                           ),
                           SizedBox(
@@ -130,7 +131,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 return null;
                               }
                             },
-                            labelText: AppLocalizations.of(context)!.c_repass,
+                            hintText: AppLocalizations.of(context)!.c_repass,
                             isPassword: true,
                           ),
                           SizedBox(

@@ -68,7 +68,14 @@
   "sb_InvalidEmailOrPassword": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
   "sb_resetPass": "تم إرسال رابط إعادة تعيين كلمة المرور إلى",
   "sb_createEvent": "تم إنشاء الحدث بنجاح",
+  "sb_deleteEvent": "تم حذف الحدث بنجاح",
+  "sb_updateEvent": "تم تحديث الحدث بنجاح",
   "fav_search": "ابحث عن حدث حسب العنوان",
   "fav_noFav": "لا توجد أحداث مفضلة حتى الآن",
-  "home_noEvents": "لا توجد أحداث حتى الآن"
+  "home_noEvents": "لا توجد أحداث حتى الآن",
+  "ed_eventDetails": "تفاصيل الحدث",
+  "ed_locat": "الموقع",
+  "ed_editEvent": "تعديل الحدث",
+  "ed_updateEvent": "تحديث الحدث",
+  "ed_location": "اختر موقع الحدث"
 }

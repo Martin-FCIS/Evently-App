@@ -68,7 +68,14 @@
   "sb_InvalidEmailOrPassword": "Invalid email or password",
   "sb_resetPass": "The password reset link has been sent to",
   "sb_createEvent": "Event Created Successfully",
+  "sb_deleteEvent": "Event deleted successfully",
+  "sb_updateEvent": "Event Updated Successfully",
   "fav_search": "Search for Event by Title",
   "fav_noFav": "No Favorite Events Yet",
-  "home_noEvents": "No Events Yet"
+  "home_noEvents": "No Events Yet",
+  "ed_eventDetails": "Event Details",
+  "ed_locat": "Location",
+  "ed_editEvent": "Edit Event",
+  "ed_updateEvent": "Update Event",
+  "ed_location": "Choose Event Location"
 }

@@ -58,8 +58,8 @@ class LayoutProvider extends ChangeNotifier {
                   AppCategories.categories[selectedTabIndex].id) {
             events.add(e.data());
           }
-          notifyListeners();
         }
+        notifyListeners();
       },
     );
   }

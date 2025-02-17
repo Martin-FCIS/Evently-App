@@ -20,12 +20,23 @@ class AppRoutes {
     RoutesName.createAccountScreen: (_) => CreateAccountScreen(),
     RoutesName.forgetPassScreen: (_) => ForgetPasswordScreen(),
     RoutesName.layoutScreen: (_) => LayoutScreen(),
-    RoutesName.createEventScreen: (_) => CreateEvent(),
+    RoutesName.createEventScreen: (context) {
+      var event = ModalRoute.of(context)!.settings.arguments;
+      if (event == null) {
+        return CreateEvent();
+      } else if (event is EventModel) {
+        return CreateEvent(
+          event: event,
+        );
+      } else {
+        return CreateEvent();
+      }
+    },
     RoutesName.onboardingScreen: (_) => OnboardingScreen(),
     RoutesName.eventDetailsScreen: (context) {
       var event = ModalRoute.of(context)!.settings.arguments as EventModel;
       return EventDetails(
-        eventModel: event,
+        event: event,
       );
     },
   };

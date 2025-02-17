@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
+  IconData icon;
   String text1;
   String? text2;
+  IconData? suffixIcon;
 
   CustomContainer({
     super.key,
+    required this.icon,
     required this.text1,
     this.text2,
+    this.suffixIcon,
   });
 
   @override
@@ -27,8 +31,8 @@ class CustomContainer extends StatelessWidget {
                 color: theme.primaryColor,
                 borderRadius: BorderRadius.circular(8)),
             child: Icon(
-              Icons.calendar_month_rounded,
-              color: Colors.white,
+              icon,
+              color: theme.primaryColorLight,
             ),
           ),
           SizedBox(
@@ -50,7 +54,12 @@ class CustomContainer extends StatelessWidget {
                   text1,
                   style: theme.textTheme.bodyMedium!
                       .copyWith(color: theme.primaryColor),
-                )
+                ),
+          Spacer(),
+          Icon(
+            suffixIcon,
+            color: theme.primaryColor,
+          ),
         ],
       ),
     );
