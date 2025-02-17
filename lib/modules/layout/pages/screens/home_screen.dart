@@ -1,6 +1,5 @@
 import 'package:event_app/core/constants/app_categories.dart';
 import 'package:event_app/core/manager/app_provider.dart';
-import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/localization_helper.dart';
 import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:event_app/modules/layout/widgets/event_card_widget.dart';
@@ -197,12 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
               : ListView.builder(
                   itemCount: provider.events.length,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, RoutesName.eventDetailsScreen);
-                        },
-                        child: EventCardWidget(event: provider.events[index]));
+                    return EventCardWidget(event: provider.events[index]);
                   },
                 ),
         );

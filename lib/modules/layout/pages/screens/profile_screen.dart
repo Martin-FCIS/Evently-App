@@ -1,5 +1,6 @@
 import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/themes/app_colors.dart';
+import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -106,7 +107,11 @@ class ProfileScreen extends StatelessWidget {
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.lang,
-                icon: Icon(Icons.arrow_drop_down_rounded,size: 50,color: theme.primaryColor,),
+                icon: Icon(
+                  Icons.arrow_drop_down_rounded,
+                  size: 50,
+                  color: theme.primaryColor,
+                ),
                 items: [
                   DropdownMenuItem(
                       value: "en",
@@ -149,7 +154,11 @@ class ProfileScreen extends StatelessWidget {
                 underline: SizedBox(),
                 isExpanded: true,
                 value: appProvider.themeMode,
-                icon: Icon(Icons.arrow_drop_down_rounded,size: 50,color: theme.primaryColor,),
+                icon: Icon(
+                  Icons.arrow_drop_down_rounded,
+                  size: 50,
+                  color: theme.primaryColor,
+                ),
                 items: [
                   DropdownMenuItem(
                       value: ThemeMode.light,
@@ -170,34 +179,39 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            InkWell(
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushReplacementNamed(context, RoutesName.loginScreen);
+            Consumer<LayoutProvider>(
+              builder: (context, provider, child) {
+                return InkWell(
+                  onTap: () {
+                    provider.logOut();
+                    Navigator.pushReplacementNamed(
+                        context, RoutesName.loginScreen);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    margin: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                        color: AppColors.logoutBtn,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.logout_rounded,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.p_logout,
+                          style: theme.textTheme.bodyLarge!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               },
-              child: Container(
-                padding: EdgeInsets.all(16),
-                margin: EdgeInsets.only(bottom: 20),
-                decoration: BoxDecoration(
-                    color: AppColors.logoutBtn,
-                    borderRadius: BorderRadius.circular(16)),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout_rounded,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.p_logout,
-                      style: theme.textTheme.bodyLarge!
-                          .copyWith(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
             )
           ],
         ),

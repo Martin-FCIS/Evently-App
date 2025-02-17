@@ -103,7 +103,7 @@ class AuthProvider extends ChangeNotifier {
             SizedBox(
               width: 10,
             ),
-            Text("' ${emailController.text} '" ?? " "),
+            Text("' ${emailController.text} '"),
           ])),
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -112,5 +112,49 @@ class AuthProvider extends ChangeNotifier {
     ));
 
     notifyListeners();
+  }
+
+  Future<void> loginWithGoogle(BuildContext context) async {
+    try {
+      user = await FirebaseAuthManager.signInWithGoogle();
+      if (user!.user?.uid != null) {
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
+        Future.delayed(
+          Duration.zero,
+          () {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Container(
+                padding: EdgeInsets.all(12),
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(children: [
+                  Text(AppLocalizations.of(context)!.sb_welcome),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("' ${user!.user?.displayName} '"),
+                ]),
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              closeIconColor: Colors.red,
+              showCloseIcon: true,
+              duration: Duration(seconds: 1),
+            ));
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.pushReplacementNamed(context, RoutesName.layoutScreen);
+            });
+          },
+        );
+        return;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

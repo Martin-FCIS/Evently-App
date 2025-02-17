@@ -1,14 +1,18 @@
 import 'package:event_app/core/constants/app_assets.dart';
+import 'package:event_app/firebase_manager/models/event_model.dart';
+import 'package:event_app/modules/event/widgets/custom_container.dart';
 import 'package:event_app/modules/layout/manager/layout_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/constants/app_categories.dart';
 import '../../../core/manager/app_provider.dart';
 
 class EventDetails extends StatelessWidget {
-  EventDetails({super.key});
+  final EventModel eventModel;
+
+  EventDetails({super.key, required this.eventModel});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class EventDetails extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            AppLocalizations.of(context)!.ca_createAcc,
+            "Event Details",
             style: TextStyle(color: theme.primaryColor),
           ),
           iconTheme: IconThemeData(
@@ -50,8 +54,8 @@ class EventDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                         child: Image.asset(
                           appProvider.themeMode == ThemeMode.light
-                              ? AppCategories.categories[1].lightimage
-                              : AppCategories.categories[1].darkimage,
+                              ? eventModel.categoryImageLight
+                              : eventModel.categoryImageDark,
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -60,79 +64,36 @@ class EventDetails extends StatelessWidget {
                         height: size.height * 0.02,
                       ),
                       Text(
-                        "dataaaaaaaaaaaaaaaaaa",
+                        eventModel.title,
                         style: theme.textTheme.bodyLarge!
                             .copyWith(color: theme.primaryColor, fontSize: 28),
                       ),
                       SizedBox(
                         height: size.height * 0.01,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: theme.primaryColor)),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: theme.primaryColor,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Icon(
-                                Icons.calendar_month_rounded,
-                                color: Colors.white,
-                              ),
+                      CustomContainer(
+                          text1: DateFormat("d MMMM yyyy")
+                              .format(DateTime.parse(eventModel.date)),
+                          text2: DateFormat.jm(
+                                  AppLocalizations.of(context)!.localeName)
+                              .format(
+                            DateTime(
+                              2000,
+                              1,
+                              1,
+                              int.parse(eventModel.time
+                                  .replaceAll(RegExp(r'[^0-9:]'), '')
+                                  .split(':')[0]),
+                              int.parse(eventModel.time
+                                  .replaceAll(RegExp(r'[^0-9:]'), '')
+                                  .split(':')[1]),
                             ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "21 November 2024 ",
-                                  style: theme.textTheme.bodyMedium!
-                                      .copyWith(color: theme.primaryColor),
-                                ),
-                                Text("12:12PM"),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                          )),
                       SizedBox(
                         height: size.height * 0.02,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: theme.primaryColor)),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: theme.primaryColor,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Icon(
-                                Icons.calendar_month_rounded,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                            Text(
-                              "Cairo , Egypt",
-                              style: theme.textTheme.bodyMedium!
-                                  .copyWith(color: theme.primaryColor),
-                            )
-                          ],
-                        ),
+                      CustomContainer(
+                        text1: "Cairo , Egypt",
                       ),
                       SizedBox(
                         height: size.height * 0.02,
@@ -155,7 +116,7 @@ class EventDetails extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.01,
                       ),
-                      Text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"),
+                      Text(eventModel.desc),
                     ],
                   ),
                 ),

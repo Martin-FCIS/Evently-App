@@ -7,9 +7,9 @@ import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
 import 'package:event_app/modules/auth/manager/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -183,7 +183,9 @@ class LoginScreen extends StatelessWidget {
                                           side: BorderSide(
                                               color: theme.primaryColor)),
                                       padding: EdgeInsets.all(16)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    provider.loginWithGoogle(context);
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

@@ -102,14 +102,4 @@ class EventProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-// Future<void> fetchEventById(String eventId) async {
-//   try {
-//     var doc = await FirebaseDatabase.getEventById(eventId);
-//     event = doc.data()!;
-//   } catch (e) {
-//     print("Error fetching event: $e");
-//   }
-//   notifyListeners();
-// }
 }

@@ -5,6 +5,7 @@ import 'package:event_app/modules/layout/pages/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_categories.dart';
+import '../../../firebase_manager/firebase_auth_manager.dart';
 import '../../../firebase_manager/firebase_database.dart';
 import '../../../firebase_manager/models/event_model.dart';
 
@@ -91,5 +92,9 @@ class LayoutProvider extends ChangeNotifier {
 
   Future<void> addFav(EventModel data, BuildContext context) {
     return FirebaseDatabase.addFav(data);
+  }
+
+  Future<void> logOut() {
+    return FirebaseAuthManager.signOut();
   }
 }
