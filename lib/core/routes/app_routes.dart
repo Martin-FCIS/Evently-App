@@ -2,8 +2,10 @@ import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/firebase_manager/models/event_model.dart';
 import 'package:event_app/modules/auth/pages/create_account_screen.dart';
 import 'package:event_app/modules/auth/pages/forget_password_screen.dart';
+import 'package:event_app/modules/event/manager/event_provider.dart';
 import 'package:event_app/modules/event/pages/create_event.dart';
 import 'package:event_app/modules/event/pages/event_details.dart';
+import 'package:event_app/modules/event/pages/pick_location_screen.dart';
 import 'package:event_app/modules/layout/pages/layout_screen.dart';
 import 'package:event_app/modules/onboarding/pages/onboarding_screen.dart';
 import 'package:event_app/modules/onboarding/pages/start_screen.dart';
@@ -39,5 +41,12 @@ class AppRoutes {
         event: event,
       );
     },
+    RoutesName.pickLocationScreen: (context) {
+      var provider =
+          ModalRoute.of(context)!.settings.arguments as EventProvider;
+      return PickLocationScreen(
+        provider: provider,
+      );
+    }
   };
 }

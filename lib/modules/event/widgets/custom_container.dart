@@ -5,14 +5,15 @@ class CustomContainer extends StatelessWidget {
   String text1;
   String? text2;
   IconData? suffixIcon;
+  TextStyle? textStyle;
 
-  CustomContainer({
-    super.key,
-    required this.icon,
-    required this.text1,
-    this.text2,
-    this.suffixIcon,
-  });
+  CustomContainer(
+      {super.key,
+      required this.icon,
+      required this.text1,
+      this.text2,
+      this.suffixIcon,
+      this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,9 @@ class CustomContainer extends StatelessWidget {
                 )
               : Text(
                   text1,
-                  style: theme.textTheme.bodyMedium!
-                      .copyWith(color: theme.primaryColor),
+                  style: textStyle ??
+                      theme.textTheme.bodyMedium!
+                          .copyWith(color: theme.primaryColor),
                 ),
           Spacer(),
           Icon(

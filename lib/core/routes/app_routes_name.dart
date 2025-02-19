@@ -10,4 +10,5 @@ class RoutesName {
   static const String createEventScreen = "create_event_screen";
   static const String onboardingScreen = "onboarding_screen";
   static const String eventDetailsScreen = "event_screen";
+  static const String pickLocationScreen = "pick_loc_screen";
 }

@@ -1,5 +1,6 @@
 import 'package:event_app/core/constants/app_assets.dart';
 import 'package:event_app/core/manager/app_provider.dart';
+import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/core/widgets/custom_button.dart';
 import 'package:event_app/core/widgets/custom_text_form_filed.dart';
 import 'package:event_app/firebase_manager/models/event_model.dart';
@@ -23,6 +24,7 @@ class CreateEvent extends StatefulWidget {
 
 class _CreateEventState extends State<CreateEvent> {
   EventProvider provider = EventProvider();
+  String text = "";
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _CreateEventState extends State<CreateEvent> {
           child: Consumer<EventProvider>(
             builder: (context, provider, child) {
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     child: ListView(
@@ -74,7 +76,6 @@ class _CreateEventState extends State<CreateEvent> {
                               width: double.infinity,
                               fit: BoxFit.cover,
                             )),
-                        Spacer(),
                         DefaultTabController(
                             initialIndex: provider.selectedTabIndex - 1,
                             length: AppCategories.categories.length - 1,
@@ -129,7 +130,6 @@ class _CreateEventState extends State<CreateEvent> {
                                     );
                                   },
                                 ).toList())),
-                        Spacer(),
                         Text(
                           AppLocalizations.of(context)!.ca_title,
                           style: theme.textTheme.bodyLarge,
@@ -147,7 +147,6 @@ class _CreateEventState extends State<CreateEvent> {
                           ),
                           hintText: AppLocalizations.of(context)!.ca_eventTitle,
                         ),
-                        Spacer(),
                         Text(
                           AppLocalizations.of(context)!.ca_desc,
                           style: theme.textTheme.bodyLarge,
@@ -196,6 +195,8 @@ class _CreateEventState extends State<CreateEvent> {
                             Spacer(),
                             InkWell(
                               onTap: () {
+                                print(
+                                    "____________________________${provider.eventLocation}");
                                 provider.selectDate(context);
                               },
                               child: Text(
@@ -253,10 +254,23 @@ class _CreateEventState extends State<CreateEvent> {
                         SizedBox(
                           height: size.height * 0.007,
                         ),
-                        CustomContainer(
-                          icon: Icons.my_location,
-                          text1: AppLocalizations.of(context)!.ed_location,
-                          suffixIcon: Icons.arrow_forward_ios_rounded,
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RoutesName.pickLocationScreen,
+                                arguments: provider);
+                          },
+                          child: CustomContainer(
+                            icon: Icons.my_location,
+                            text1: provider.eventLocation != null
+                                ? "${provider.eventLocation!.latitude}: ${provider.eventLocation!.longitude}"
+                                : AppLocalizations.of(context)!.ed_location,
+                            suffixIcon: Icons.arrow_forward_ios_rounded,
+                            textStyle: provider.eventLocation == null
+                                ? null
+                                : theme.textTheme.bodySmall!
+                                    .copyWith(color: theme.primaryColor),
+                          ),
                         ),
                         SizedBox(
                           height: size.height * 0.009,
@@ -270,7 +284,6 @@ class _CreateEventState extends State<CreateEvent> {
                                   ? provider.addEvent(context)
                                   : provider.updateEvent(context);
                             }),
-                        Spacer(),
                       ],
                     ),
                   )

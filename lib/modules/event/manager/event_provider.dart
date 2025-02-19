@@ -5,7 +5,9 @@ import 'package:event_app/firebase_manager/firebase_database.dart';
 import 'package:event_app/firebase_manager/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 
 class EventProvider extends ChangeNotifier {
   final AppProvider _provider = AppProvider();
@@ -19,6 +21,21 @@ class EventProvider extends ChangeNotifier {
   TextEditingController descController = TextEditingController();
   EventModel? event;
   String? formattedDate;
+
+  //Maps
+  Location location = Location();
+  late GoogleMapController mapController;
+  CameraPosition cameraPosition = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 17,
+  );
+  Set<Marker> markers = {
+    Marker(
+      markerId: MarkerId("0"),
+    )
+  };
+
+  LatLng? eventLocation;
 
   void changeTabIndex(int value) {
     selectedTabIndex = value;
@@ -81,12 +98,14 @@ class EventProvider extends ChangeNotifier {
   }
 
   Future<void> addEvent(BuildContext context) async {
-    if (!isDate || !isTime) {
+    if (!isDate || !isTime || eventLocation == null) {
       _provider.showSnackBar(
           context: context,
           message: !isDate
               ? AppLocalizations.of(context)!.sb_YouMustChooseDate
-              : AppLocalizations.of(context)!.sb_YouMustChooseTime,
+              : eventLocation != null
+                  ? AppLocalizations.of(context)!.sb_YouMustChooseTime
+                  : "Location is Required",
           showCloseIcon: true);
     } else {
       EventModel data = EventModel(
@@ -99,7 +118,9 @@ class EventProvider extends ChangeNotifier {
           categoryImageLight:
               AppCategories.categories[selectedTabIndex].lightimage,
           categoryImageDark:
-              AppCategories.categories[selectedTabIndex].darkimage);
+              AppCategories.categories[selectedTabIndex].darkimage,
+          lat: eventLocation?.latitude ?? 0,
+          long: eventLocation?.longitude ?? 0);
       await FirebaseDatabase.addEvent(data);
       _provider.showSnackBar(
           context: context,
@@ -160,5 +181,68 @@ class EventProvider extends ChangeNotifier {
       Navigator.pushReplacementNamed(context, RoutesName.layoutScreen);
     });
     return FirebaseDatabase.updateEvent(event!);
+  }
+
+  //Maps
+  Future<void> getLocation() async {
+    bool locationPermGranted = await _getLocationPermission();
+    if (!locationPermGranted) {
+      return;
+    }
+    bool locationServiceEnabled = await _locationServiceEnabled();
+    if (!locationServiceEnabled) {
+      return;
+    }
+    LocationData locationData = await location.getLocation();
+    changeLocationOnMap(locationData);
+  }
+
+  Future<bool> _getLocationPermission() async {
+    PermissionStatus perm = await location.hasPermission();
+    print("Current Permission Status: $perm");
+    if (perm == PermissionStatus.denied) {
+      perm = await location.requestPermission();
+      print("Updated Permission Status: $perm");
+    }
+
+    return perm == PermissionStatus.granted;
+  }
+
+  Future<bool> _locationServiceEnabled() async {
+    bool locationServiceEnabled = await location.serviceEnabled();
+    if (!locationServiceEnabled) {
+      locationServiceEnabled = await location.requestService();
+    }
+    return locationServiceEnabled;
+  }
+
+  void changeLocationOnMap(LocationData locationData) {
+    cameraPosition = CameraPosition(
+        target: LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0),
+        zoom: 17);
+    markers = {
+      Marker(
+          markerId: MarkerId("0"),
+          position:
+              LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0))
+    };
+    mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    notifyListeners();
+  }
+
+  void changeEventLocation(LatLng newEventLocation) {
+    eventLocation = newEventLocation;
+    cameraPosition = CameraPosition(
+        target: LatLng(
+            newEventLocation.latitude ?? 0, newEventLocation.longitude ?? 0),
+        zoom: 17);
+    markers = {
+      Marker(
+          markerId: MarkerId("0"),
+          position: LatLng(
+              newEventLocation.latitude ?? 0, newEventLocation.longitude ?? 0))
+    };
+    mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    notifyListeners();
   }
 }

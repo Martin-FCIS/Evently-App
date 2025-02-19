@@ -11,8 +11,9 @@ class EventModel {
   String categoryName;
   bool isFav;
   String categoryImageLight;
-
   String categoryImageDark;
+  double lat;
+  double long;
 
   EventModel(
       {this.id,
@@ -24,7 +25,9 @@ class EventModel {
       required this.categoryName,
       this.isFav = false,
       required this.categoryImageLight,
-      required this.categoryImageDark}) {
+      required this.categoryImageDark,
+      this.lat = 0,
+      this.long = 0}) {
     userId = FirebaseAuth.instance.currentUser!.uid;
   }
 
@@ -40,6 +43,8 @@ class EventModel {
       "categoryImageLight": categoryImageLight,
       "categoryImageDark": categoryImageDark,
       "isFav": isFav,
+      "lat": lat,
+      "long": long,
       "userId": userId
     };
   }
@@ -56,6 +61,8 @@ class EventModel {
         categoryID: json["categoryID"],
         categoryName: json["categoryName"],
         categoryImageLight: json["categoryImageLight"],
-        categoryImageDark: json["categoryImageDark"]);
+        categoryImageDark: json["categoryImageDark"],
+        lat: json["lat"] ?? 0,
+        long: json["long"] ?? 0);
   }
 }

@@ -47,6 +47,9 @@ dependencies:
     sdk: flutter
   intl: any
   google_sign_in: ^6.2.2
+  location: ^8.0.0
+  permission_handler: ^11.3.1
+  google_maps_flutter: ^2.10.0
 
 dev_dependencies:
   flutter_test:
