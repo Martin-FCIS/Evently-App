@@ -1,8 +1,10 @@
+import 'package:event_app/core/routes/app_routes_name.dart';
 import 'package:event_app/modules/layout/pages/screens/fav_screen.dart';
 import 'package:event_app/modules/layout/pages/screens/home_screen.dart';
 import 'package:event_app/modules/layout/pages/screens/map_screen.dart';
 import 'package:event_app/modules/layout/pages/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -35,6 +37,8 @@ class LayoutProvider extends ChangeNotifier {
       position: LatLng(37.42796133580664, -122.085749655962),
     )
   };
+  bool dialog = false;
+  bool isLocationGranted = false;
 
   void changeBtnNavIndex(int value) {
     selectedIndex = value;
@@ -113,8 +117,8 @@ class LayoutProvider extends ChangeNotifier {
     return FirebaseAuthManager.signOut();
   }
 
-  Future<void> getLocation() async {
-    bool locationPermGranted = await _getLocationPermission();
+  Future<void> getLocation(BuildContext context) async {
+    bool locationPermGranted = await getLocationPermission(context);
     if (!locationPermGranted) {
       return;
     }
@@ -126,15 +130,71 @@ class LayoutProvider extends ChangeNotifier {
     changeLocationOnMap(locationData);
   }
 
-  Future<bool> _getLocationPermission() async {
+  Future<bool> getLocationPermission(BuildContext context) async {
     PermissionStatus perm = await location.hasPermission();
     print("Current Permission Status: $perm");
     if (perm == PermissionStatus.denied) {
       perm = await location.requestPermission();
-      print("Updated Permission Status: $perm");
+      print("=====================Updated Permission Status: $perm");
+    }
+    if (perm == PermissionStatus.deniedForever) {
+      dialog = true;
+      print("++++++++++++Updated Permission Status: $perm");
+      print("2222222222222222222222222 $dialog");
+      notifyListeners();
+      showDialog(
+        context: context,
+        builder: (context) {
+          var theme = Theme.of(context);
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.ad_warning,
+                style: TextStyle(color: theme.primaryColor)),
+            content: Text(AppLocalizations.of(context)!.ad_deniedForever,
+                style: TextStyle(color: theme.primaryColor)),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, RoutesName.layoutScreen);
+                },
+                child: Text(AppLocalizations.of(context)!.ad_ok,
+                    style: TextStyle(color: theme.primaryColor)),
+              ),
+            ],
+          );
+        },
+      );
+    } else if (perm == PermissionStatus.denied && !dialog) {
+      print("----------------Updated Permission Status: $perm");
+      print("11111111111111111111111111111 $dialog");
+      showDialog(
+        context: context,
+        builder: (context) {
+          var theme = Theme.of(context);
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.ad_warning,
+                style: TextStyle(color: theme.primaryColor)),
+            content: Text(AppLocalizations.of(context)!.ad_denied,
+                style: TextStyle(color: theme.primaryColor)),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(AppLocalizations.of(context)!.ad_ok,
+                    style: TextStyle(color: theme.primaryColor)),
+              ),
+            ],
+          );
+        },
+      );
     }
 
-    return perm == PermissionStatus.granted;
+    perm == PermissionStatus.granted
+        ? isLocationGranted = true
+        : isLocationGranted = false;
+    notifyListeners();
+    return isLocationGranted;
   }
 
   Future<bool> _locationServiceEnabled() async {
@@ -166,6 +226,18 @@ class LayoutProvider extends ChangeNotifier {
           markerId: MarkerId("0"),
           position:
               LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0))
+    };
+    mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    notifyListeners();
+  }
+
+  void changeCameraLocationOnMap(LatLng location) {
+    cameraPosition = CameraPosition(
+        target: LatLng(location.latitude, location.longitude), zoom: 17);
+    markers = {
+      Marker(
+          markerId: MarkerId("0"),
+          position: LatLng(location.latitude, location.longitude))
     };
     mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     notifyListeners();

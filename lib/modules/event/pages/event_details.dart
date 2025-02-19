@@ -91,7 +91,9 @@ class EventDetails extends StatelessWidget {
                     ),
                     CustomContainer(
                       icon: Icons.my_location,
-                      text1: AppLocalizations.of(context)!.lo_loc,
+                      text1: "${event.lat} : ${event.long}",
+                      textStyle: theme.textTheme.bodySmall!
+                          .copyWith(color: theme.primaryColor),
                       suffixIcon: Icons.arrow_forward_ios_rounded,
                     ),
                     SizedBox(

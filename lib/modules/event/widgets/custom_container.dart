@@ -54,8 +54,11 @@ class CustomContainer extends StatelessWidget {
               : Text(
                   text1,
                   style: textStyle ??
-                      theme.textTheme.bodyMedium!
-                          .copyWith(color: theme.primaryColor),
+                      theme.textTheme.bodyMedium!.copyWith(
+                        color: theme.primaryColor,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                  maxLines: 1,
                 ),
           Spacer(),
           Icon(

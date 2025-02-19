@@ -34,6 +34,8 @@ class EventProvider extends ChangeNotifier {
       markerId: MarkerId("0"),
     )
   };
+  bool dialog = false;
+  bool isLocationGranted = false;
 
   LatLng? eventLocation;
 
@@ -105,7 +107,7 @@ class EventProvider extends ChangeNotifier {
               ? AppLocalizations.of(context)!.sb_YouMustChooseDate
               : eventLocation != null
                   ? AppLocalizations.of(context)!.sb_YouMustChooseTime
-                  : "Location is Required",
+                  : AppLocalizations.of(context)!.sb_locRequired,
           showCloseIcon: true);
     } else {
       EventModel data = EventModel(
@@ -159,6 +161,7 @@ class EventProvider extends ChangeNotifier {
       hour: int.parse(timeParts[0]),
       minute: int.parse(timeParts[1]),
     );
+    eventLocation = LatLng(eventModel.lat, eventModel.long);
     notifyListeners();
   }
 
@@ -173,6 +176,8 @@ class EventProvider extends ChangeNotifier {
         AppCategories.categories[selectedTabIndex].lightimage;
     event?.categoryImageDark =
         AppCategories.categories[selectedTabIndex].darkimage;
+    event?.lat = eventLocation!.latitude;
+    event?.long = eventLocation!.longitude;
     _provider.showSnackBar(
         context: context,
         message: AppLocalizations.of(context)!.sb_updateEvent,
@@ -184,8 +189,8 @@ class EventProvider extends ChangeNotifier {
   }
 
   //Maps
-  Future<void> getLocation() async {
-    bool locationPermGranted = await _getLocationPermission();
+  Future<void> getLocation(BuildContext context) async {
+    bool locationPermGranted = await _getLocationPermission(context);
     if (!locationPermGranted) {
       return;
     }
@@ -197,15 +202,71 @@ class EventProvider extends ChangeNotifier {
     changeLocationOnMap(locationData);
   }
 
-  Future<bool> _getLocationPermission() async {
+  Future<bool> _getLocationPermission(BuildContext context) async {
     PermissionStatus perm = await location.hasPermission();
     print("Current Permission Status: $perm");
     if (perm == PermissionStatus.denied) {
       perm = await location.requestPermission();
-      print("Updated Permission Status: $perm");
+      print("=====================Updated Permission Status: $perm");
     }
-
-    return perm == PermissionStatus.granted;
+    if (perm == PermissionStatus.deniedForever) {
+      dialog = true;
+      print("++++++++++++Updated Permission Status: $perm");
+      print("2222222222222222222222222 $dialog");
+      notifyListeners();
+      showDialog(
+        context: context,
+        builder: (context) {
+          var theme = Theme.of(context);
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.ad_warning,
+                style: TextStyle(color: theme.primaryColor)),
+            content: Text(AppLocalizations.of(context)!.ad_deniedForever,
+                style: TextStyle(color: theme.primaryColor)),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text(AppLocalizations.of(context)!.ad_ok,
+                    style: TextStyle(color: theme.primaryColor)),
+              ),
+            ],
+          );
+        },
+      );
+    } else if (perm == PermissionStatus.denied && !dialog) {
+      print("----------------Updated Permission Status: $perm");
+      print("11111111111111111111111111111 $dialog");
+      showDialog(
+        context: context,
+        builder: (context) {
+          var theme = Theme.of(context);
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.ad_warning,
+                style: TextStyle(color: theme.primaryColor)),
+            content: Text(AppLocalizations.of(context)!.ad_denied,
+                style: TextStyle(color: theme.primaryColor)),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text(AppLocalizations.of(context)!.ad_ok,
+                    style: TextStyle(color: theme.primaryColor)),
+              ),
+            ],
+          );
+        },
+      );
+    }
+    perm == PermissionStatus.granted
+        ? isLocationGranted = true
+        : isLocationGranted = false;
+    notifyListeners();
+    return isLocationGranted;
   }
 
   Future<bool> _locationServiceEnabled() async {

@@ -24,7 +24,6 @@ class CreateEvent extends StatefulWidget {
 
 class _CreateEventState extends State<CreateEvent> {
   EventProvider provider = EventProvider();
-  String text = "";
 
   @override
   void initState() {

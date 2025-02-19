@@ -1,5 +1,6 @@
 import 'package:event_app/modules/event/manager/event_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    provider.getLocation();
+    provider.getLocation(context);
   }
 
   @override
@@ -29,6 +30,13 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
       value: provider,
       child: Scaffold(
           body: Consumer<EventProvider>(builder: (context, provider, child) {
+        if (!provider.isLocationGranted) {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
         return Column(
           children: [
             Expanded(
@@ -39,21 +47,26 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text("Confirmation"),
-                      content: Text("Are you sure to select this location?"),
+                      title: Text(AppLocalizations.of(context)!.ad_conf),
+                      content: Text(
+                        AppLocalizations.of(context)!.ad_chooseLoc,
+                        style: TextStyle(color: theme.primaryColor),
+                      ),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("No"),
+                          child: Text(AppLocalizations.of(context)!.ad_no,
+                              style: TextStyle(color: theme.primaryColor)),
                         ),
                         ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Yes"),
+                          child: Text(AppLocalizations.of(context)!.ad_yes,
+                              style: TextStyle(color: theme.primaryColor)),
                         ),
                       ],
                     );
@@ -73,7 +86,7 @@ class _PickLocationScreenState extends State<PickLocationScreen> {
               decoration: BoxDecoration(color: theme.primaryColor),
               child: Center(
                   child: Text(
-                "Tap on Location To Select",
+                AppLocalizations.of(context)!.tabOnLoc,
                 style: theme.textTheme.bodyLarge!.copyWith(color: Colors.white),
               )),
             )

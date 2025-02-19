@@ -70,6 +70,15 @@
   "sb_createEvent": "Event Created Successfully",
   "sb_deleteEvent": "Event deleted successfully",
   "sb_updateEvent": "Event Updated Successfully",
+  "sb_locRequired": "Location is Required",
+  "ad_warning": "Warning",
+  "ad_deniedForever": "Location Permission is Denied Forever....Please Go to App Settings and Enable Permission ",
+  "ad_ok": "OK",
+  "ad_denied": "Location Permission is Denied ....We Can't Access Maps",
+  "ad_conf": "Confirmation",
+  "ad_chooseLoc": "Are you sure to select this location?",
+  "ad_no": "No",
+  "ad_yes": "Yes",
   "fav_search": "Search for Event by Title",
   "fav_noFav": "No Favorite Events Yet",
   "home_noEvents": "No Events Yet",
@@ -77,5 +86,6 @@
   "ed_locat": "Location",
   "ed_editEvent": "Edit Event",
   "ed_updateEvent": "Update Event",
-  "ed_location": "Choose Event Location"
+  "ed_location": "Choose Event Location",
+  "tabOnLoc": "Tap on Location To Select"
 }
