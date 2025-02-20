@@ -51,16 +51,18 @@ class CustomContainer extends StatelessWidget {
                     Text(text2!),
                   ],
                 )
-              : Text(
-                  text1,
-                  style: textStyle ??
-                      theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.primaryColor,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                  maxLines: 1,
+              : Expanded(
+                  child: Text(
+                    text1,
+                    style: textStyle ??
+                        theme.textTheme.bodyMedium!.copyWith(
+                          color: theme.primaryColor,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-          Spacer(),
           Icon(
             suffixIcon,
             color: theme.primaryColor,

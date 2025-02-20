@@ -5,6 +5,7 @@ import 'package:event_app/modules/event/manager/event_provider.dart';
 import 'package:event_app/modules/event/widgets/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/manager/app_provider.dart';
@@ -89,12 +90,19 @@ class EventDetails extends StatelessWidget {
                     SizedBox(
                       height: size.height * 0.02,
                     ),
-                    CustomContainer(
-                      icon: Icons.my_location,
-                      text1: "${event.lat} : ${event.long}",
-                      textStyle: theme.textTheme.bodySmall!
-                          .copyWith(color: theme.primaryColor),
-                      suffixIcon: Icons.arrow_forward_ios_rounded,
+                    FutureBuilder<String>(
+                      future: provider
+                          .getLocationByName(LatLng(event.lat, event.long)),
+                      builder: (context, snapshot) {
+                        return CustomContainer(
+                          icon: Icons.my_location,
+                          text1: snapshot.data ?? "Unknown Location",
+                          textStyle: theme.textTheme.bodySmall!.copyWith(
+                            color: theme.primaryColor,
+                          ),
+                          suffixIcon: Icons.arrow_forward_ios_rounded,
+                        );
+                      },
                     ),
                     SizedBox(
                       height: size.height * 0.02,
@@ -104,7 +112,23 @@ class EventDetails extends StatelessWidget {
                           border: Border.all(color: theme.primaryColor),
                           borderRadius: BorderRadius.circular(16)),
                       width: double.infinity,
-                      height: 300,
+                      height: size.height * 0.4,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: GoogleMap(
+                            scrollGesturesEnabled: false,
+                            tiltGesturesEnabled: false,
+                            zoomGesturesEnabled: false,
+                            markers: {
+                              Marker(
+                                  markerId: MarkerId("0"),
+                                  position: LatLng(event.lat, event.long)),
+                            },
+                            mapType: MapType.normal,
+                            initialCameraPosition: CameraPosition(
+                                target: LatLng(event.lat, event.long),
+                                zoom: 17)),
+                      ),
                     ),
                     SizedBox(
                       height: size.height * 0.02,

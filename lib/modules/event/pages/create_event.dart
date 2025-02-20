@@ -259,16 +259,26 @@ class _CreateEventState extends State<CreateEvent> {
                                 context, RoutesName.pickLocationScreen,
                                 arguments: provider);
                           },
-                          child: CustomContainer(
-                            icon: Icons.my_location,
-                            text1: provider.eventLocation != null
-                                ? "${provider.eventLocation!.latitude}: ${provider.eventLocation!.longitude}"
-                                : AppLocalizations.of(context)!.ed_location,
-                            suffixIcon: Icons.arrow_forward_ios_rounded,
-                            textStyle: provider.eventLocation == null
-                                ? null
-                                : theme.textTheme.bodySmall!
-                                    .copyWith(color: theme.primaryColor),
+                          child: FutureBuilder<String>(
+                            future: provider.eventLocation != null
+                                ? provider
+                                    .getLocationByName(provider.eventLocation!)
+                                : Future.value(
+                                    AppLocalizations.of(context)!.ed_location),
+                            builder: (context, snapshot) {
+                              return CustomContainer(
+                                icon: Icons.my_location,
+                                text1: snapshot.connectionState ==
+                                        ConnectionState.waiting
+                                    ? "Loading...."
+                                    : snapshot.data ?? "Unknown Location",
+                                suffixIcon: Icons.arrow_forward_ios_rounded,
+                                textStyle: provider.eventLocation == null
+                                    ? null
+                                    : theme.textTheme.bodySmall!
+                                        .copyWith(color: theme.primaryColor),
+                              );
+                            },
                           ),
                         ),
                         SizedBox(

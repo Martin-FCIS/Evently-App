@@ -5,6 +5,7 @@ import 'package:event_app/firebase_manager/firebase_database.dart';
 import 'package:event_app/firebase_manager/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
@@ -176,14 +177,15 @@ class EventProvider extends ChangeNotifier {
         AppCategories.categories[selectedTabIndex].lightimage;
     event?.categoryImageDark =
         AppCategories.categories[selectedTabIndex].darkimage;
-    event?.lat = eventLocation!.latitude;
-    event?.long = eventLocation!.longitude;
+    event!.lat = eventLocation?.latitude ?? 0;
+    event!.long = eventLocation?.longitude ?? 0;
     _provider.showSnackBar(
         context: context,
         message: AppLocalizations.of(context)!.sb_updateEvent,
         showCloseIcon: false);
     Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, RoutesName.layoutScreen);
+      print("=============${event!.lat} : ${event!.long}=============");
     });
     return FirebaseDatabase.updateEvent(event!);
   }
@@ -305,5 +307,11 @@ class EventProvider extends ChangeNotifier {
     };
     mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     notifyListeners();
+  }
+
+  Future<String> getLocationByName(LatLng location) async {
+    var response = await GeoCode().reverseGeocoding(
+        latitude: location.latitude, longitude: location.longitude);
+    return "${response.countryName},${response.city} ${response.streetAddress ?? ""} ";
   }
 }
